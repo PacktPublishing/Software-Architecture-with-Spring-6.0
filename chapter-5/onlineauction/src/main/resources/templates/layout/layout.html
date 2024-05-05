@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+    <head th:replace="~{fragments/header::header}">
+    </head>
+<body>
+
+<!-- Top Header -->
+<header class=" py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div th:replace="~{fragments/navigation::navigation}"></div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="content py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div layout:fragment="content"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bottom Footer -->
+<footer class="footer py-3 mt-auto">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div th:replace="~{fragments/footer::footer}"></div>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

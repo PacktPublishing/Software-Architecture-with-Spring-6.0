@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+    <title></title>
+</head>
+
+<body>
+<header class="p-3 mb-3 border-bottom" th:fragment="navigation">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                    <use xlink:href="#bootstrap"></use>
+                </svg>
+            </a>
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="/home" class="nav-link px-2 link-secondary">Home</a></li>
+                <li>
+                    <div class="nav-link px-2 link-secondary dropdown text-end">
+                        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropProducts"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Products
+                        </a>
+                        <ul class="dropdown-menu text-small" aria-labelledby="dropProducts" style="">
+                            <li><a class="dropdown-item" href="/products">List Products</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="nav-link px-2 link-secondary dropdown text-end">
+                        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropAuctions"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Auctions
+                        </a>
+                        <ul class="dropdown-menu text-small" aria-labelledby="dropAuctions" style="">
+                            <li><a class="dropdown-item" href="#">List Auctions</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li><a href="#" class="nav-link px-2 link-dark">Payment</a></li>
+                <li><a href="#" class="nav-link px-2 link-dark">Shipping</a></li>
+                <li sec:authorize="hasRole('ROLE_ADMIN')">
+                    <div class="nav-link px-2 link-secondary dropdown text-end">
+                        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropAdmin"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Admin
+                        </a>
+                        <ul class="dropdown-menu text-small" aria-labelledby="dropAdmin" style="">
+                            <li><a class="dropdown-item" href="#">List All Users</a></li>
+                            <li><a class="dropdown-item" href="#">List All Auctions</a></li>
+                            <li><a class="dropdown-item" href="#">List All Payment</a></li>
+                            <li><a class="dropdown-item" href="#">List All Shipping</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            </li>
+            <div class="dropdown text-end" sec:authorize="!isAuthenticated()">
+                <a href="/login" class="nav-link px-2 link-secondary">Login</a>
+            </div>
+            <div class="dropdown text-end" sec:authorize="isAuthenticated()">
+                <a href="/logout" class="nav-link px-2 link-secondary">Logout</a>
+            </div>
+
+        </div>
+    </div>
+</header>
+</body>
+
+</html>
