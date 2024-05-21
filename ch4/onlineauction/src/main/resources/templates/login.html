@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html}">
+
+<head>
+<title>
+
+
+</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 offset-lg-3">
+					<div class="login-container bg-white p-4 shadow">
+						<h2 class="text-center mb-4">Online Auction</h2>
+						<form th:action="@{/login}" method="post">
+							<div th:if="${param.error}">
+								Invalid username and password.</div>
+							<div th:if="${param.logout}">
+								You have been logged out.</div>
+							<div class="mb-3">
+								<label for="username" class="form-label">Username</label>
+								<input type="text" class="form-control" id="username" aria-describedby="emailHelp" name="username" th:value="user" placeholder="username" required/>
+							</div>
+							<div class="mb-3">
+								<label for="password" class="form-label">Password</label>
+								<input type="password" class="form-control" id="password" aria-describedby="password" name="password" th:value="test123" placeholder="password" required/>
+							</div>
+							<div class="mb-3 form-check">
+								<input type="checkbox" class="form-check-input" id="remember">
+								<label class="form-check-label" for="remember">Remember me</label>
+							</div>
+							<div class="text-center">
+								<button type="submit" class="btn btn-primary">Login</button>
+							</div>
+						</form>
+						<div class="text-center mt-3">
+							<a href="#">Forgot password?</a>
+						</div>
+						<hr>
+						<div class="text-center">
+							<p class="mb-0">Don't have an account? <a href="#">Register</a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

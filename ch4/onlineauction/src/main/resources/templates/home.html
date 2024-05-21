@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout.html}">
+
+<head>
+<title>
+</title>
+
+</head>
+
+<body>
+<section layout:fragment="content">
+
+
+	<style>
+		/* Custom styles */
+		.jumbotron {
+			background-image: url('/imgs/radio.jpg');
+			background-size: cover;
+			height: 80vh;
+			color: white;
+			text-shadow: 2px 2px 4px #000000;
+		}
+
+		.overlay {
+			background: rgba(0, 0, 0, 0.5);
+			height: 100%;
+		}
+	</style>
+
+	<div >
+
+		<!-- Jumbotron -->
+		<div class="jumbotron jumbotron-fluid">
+			<div class="container overlay">
+				<h1 class="display-4">Discover Exquisite Treasures</h1>
+				<p class="lead">Join Beauty Land Auction and explore a world of unique items waiting to be yours.</p>
+				<a class="btn btn-primary btn-lg" href="#" role="button">Start Bidding</a>
+			</div>
+		</div>
+
+		<!-- Marketing Section -->
+		<div class="container my-5">
+			<div class="row">
+				<div class="col-lg-4">
+					<h2>Wide Selection</h2>
+					<p>From antique collectibles to modern gadgets, we have something for every taste.</p>
+				</div>
+				<div class="col-lg-4">
+					<h2>Easy to Use</h2>
+					<p>Our user-friendly platform makes buying and selling a breeze.</p>
+				</div>
+				<div class="col-lg-4">
+					<h2>Secure Transactions</h2>
+					<p>Rest assured, your transactions are safe and secure with us.</p>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</section>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Products</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .btn-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 24px;
+            text-align: center;
+            line-height: 1.428571429;
+            position: fixed;
+            bottom: 3vw;
+            display: block !important;
+            z-index: 99999;
+            z-index: 99999 !important;
+        }
+    </style>
+
+</head>
+<body>
+<div class="container mt-5">
+    <div class="d-flex justify-content-end">
+        <!-- Button that navigates to the products page -->
+
+    </div>
+</div>
+
+<div layout:fragment="content">
+    <div class="d-flex justify-content-end">
+        <!-- Plus rounded button -->
+        <a th:href="@{/products/add}" class="btn btn-success btn-circle">+</a>
+    </div>
+    <div class="container mt-5">
+        <h1>Products</h1>
+        <table class="table">
+            <thead class="table table-striped table-hover">
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Photo</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.name}">Product Name</td>
+                <td th:text="${product.description}">Description</td>
+                <td>
+                    <img th:src="@{'data:image/jpeg;base64,'+${product.photoBase64()}}" alt="Product Photo"
+                         height="100" width="100"/>
+                </td>
+                <td>
+                    <div class=" mt-5 d-flex align-items-start flex-column">
+                        <a th:href="@{/products/edit}" class="btn btn-primary">Edit</a>
+                    </div>
+                </td>
+                <td>
+                    <div class=" mt-5 d-flex align-items-start flex-column">
+                        <a th:href="@{/products/delete}" class="btn btn-danger">Delete</a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</div>
+</body>
+</html>
