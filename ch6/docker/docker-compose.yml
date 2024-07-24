@@ -1,0 +1,48 @@
+version: "3.8"
+services:
+  authentication-services:
+    build: ../authentication-services
+    ports:
+      - "8080:8080"
+    environment:
+      DATABASE_URL: jdbc:postgresql://postgresql:5432/authentication_db
+      USER_SERVICE_URL: http://user-services:8081
+    depends_on:
+      - postgresql
+      # - user-services
+  user-services:
+    build: ../user-services
+    ports:
+      - "8081:8081"
+    environment:
+      DATABASE_URL: jdbc:postgresql://postgresql:5432/user_db
+      AUTH_SERVICE_URL: http://authentication-services:8080
+    depends_on:
+      - postgresql
+      - authentication-services
+  product-services:
+    build: ../product-services
+    ports:
+       - "8082:8082"
+    environment:
+      DATABASE_URL: jdbc:postgresql://postgresql:5432/product_db
+      AUTH_SERVICE_URL: http://authentication-services:8080
+    depends_on:
+      - postgresql
+      - user-services
+  postgresql:
+    image: postgres
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_ROOT_PASSWORD: ${POSTGRES_ROOT_PASSWORD}
+    ports:
+      - ${POSTGRES_PORT}:5432
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+volumes:
+  postgres-data:
