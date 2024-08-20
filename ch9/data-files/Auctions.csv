@@ -1,0 +1,2 @@
+_id,_class,createdat,active,description,maxbid,minbid,productid
+66b695ece6101f6326d01e9d,com.packtpub.bidservices.adapter.datasources.auction.AuctionDocument,2024-08-09T22:27:37.951+00:00,true,Leilão de Carro,2,1,1

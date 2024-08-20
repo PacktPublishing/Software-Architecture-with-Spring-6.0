@@ -1,0 +1,15 @@
+_id,_class,amount,auctionId,createdAt,userId
+66b769c190f9ac02d0975c5x,com.packtpub.bidservices.adapter.datasources.bid.BidDocument,1100.00,66b695ece6101f6326d01e9d,2024-08-11T13:23:13.170Z,9
+66b769c190f9ac02d0975c5a,com.packtpub.bidservices.adapter.datasources.bid.BidDocument,1000.00,66b695ece6101f6326d01e9d,2024-08-10T13:23:13.170Z,9
+66b76b7950c80234f1bd60b9,com.packtpub.bidservices.adapter.datasources.bid.BidDocument,390.00,66b695ece6101f6326d01e9d,2024-08-10T13:30:33.832Z,9
+66b76b9c50c80234f1bd60ba,com.packtpub.bidservices.adapter.datasources.bid.BidDocument,290.00,66b695ece6101f6326d01e9d,2024-08-10T13:31:08.623Z,9
+66b76bf050c80234f1bd60bb,com.packtpub.bidservices.adapter.datasources.bid.BidDocument,190.00,66b695ece6101f6326d01e9d,2024-08-10T13:32:32.189Z,9
+66b76c2a50c80234f1bd60bc,com.packtpub.bidservices.adapter.datasources.bid.BidDocument,90.00,66b695ece6101f6326d01e9d,2024-08-10T13:33:30.083Z,9
+66baa4e0695aa1557f15433a,com.packtpub.bidservices.adapter.datasources.bid.BidDocument,80.00,66b695ece6101f6326d01e9d,2024-08-13T00:12:12.463Z,9
+66baa8cfd113a604ad17cc2e,com.packtpub.bidservices.adapter.datasources.bid.BidDocument,70.00,66b695ece6101f6326d01e9d,2024-08-13T00:28:52.399Z,9
+66baa919d113a604ad17cc2f,com.packtpub.bidservices.adapter.datasources.bid.BidDocument,60.00,66b695ece6101f6326d01e9d,2024-08-13T00:30:04.177Z,9
+66baa97c6a201937f8825c06,com.packtpub.bidservices.adapter.datasources.bid.BidDocument,50.00,66b695ece6101f6326d01e9d,2024-08-13T00:31:52.180Z,9
+66baa9836a201937f8825c07,com.packtpub.bidservices.adapter.datasources.bid.BidDocument,40.00,66b695ece6101f6326d01e9d,2024-08-13T00:32:02.063Z,9
+66baaa6cc0f15f54d7d89d51,com.packtpub.bidservices.adapter.datasources.bid.BidDocument,30.00,66b695ece6101f6326d01e9d,2024-08-13T00:35:52.858Z,9
+66bab3a55b67c047eda89f08,com.packtpub.bidservices.adapter.datasources.bid.BidDocument,20.00,66b695ece6101f6326d01e9d,2024-08-13T01:15:14.963Z,9
+66babf12b314bc7cc2de2fb4,com.packtpub.bidservices.adapter.datasources.bid.BidDocument,10.00,66b695ece6101f6326d01e9d,2024-08-13T02:03:21.491Z,9
