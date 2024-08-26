@@ -38,10 +38,10 @@ public class EtlBatchProcessApplication {
 
     @Scheduled(fixedRate = 2000)
     public void importBidsFile() throws Exception {
-        String bidsFile = "/Users/wanderson/01-Professional/01-Author/01-Books/Software-Architecture-with-Spring-6.0/ch9/data-files/Bids.csv";
-        String usersFile = "/Users/wanderson/01-Professional/01-Author/01-Books/Software-Architecture-with-Spring-6.0/ch9/data-files/Users.csv";
-        String productsFile = "/Users/wanderson/01-Professional/01-Author/01-Books/Software-Architecture-with-Spring-6.0/ch9/data-files/Products.csv";
-        String auctionsFile = "/Users/wanderson/01-Professional/01-Author/01-Books/Software-Architecture-with-Spring-6.0/ch9/data-files/Auctions.csv";
+        String bidsFile = "../data-files/Bids.csv";
+        String usersFile = "../data-files/Users.csv";
+        String productsFile = "../data-files/Products.csv";
+        String auctionsFile = "../data-files/Auctions.csv";
 
         val jobParameters = new JobParametersBuilder()
                 .addDate("timestamp", Calendar.getInstance().getTime())
