@@ -1,5 +1,6 @@
 package com.packtpub.onlineauction.etlbatchprocess.users;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
@@ -10,13 +11,10 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 @Component
+@RequiredArgsConstructor
 public class UserItemWriter implements ItemWriter<User> {
 
     private final JdbcTemplate jdbcTemplate;
-
-    public UserItemWriter(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     @Override
     public void write(Chunk<? extends User> users) throws Exception {

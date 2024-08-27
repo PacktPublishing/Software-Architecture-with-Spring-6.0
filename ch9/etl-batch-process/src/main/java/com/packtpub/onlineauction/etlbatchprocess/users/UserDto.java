@@ -14,16 +14,10 @@ import java.time.LocalDateTime;
 @Builder
 public class UserDto {
     private Long id;
-
     private String name;
-
     private String email;
-
     private String phoneNumber;
-
     private String city;
-
     private String state;
-
     private String country;
 }

@@ -27,7 +27,6 @@ public class AuctionItemReader extends FlatFileItemReader<AuctionDto> {
         val defaultLineMapper = new DefaultLineMapper<AuctionDto>();
         val lineTokenizer = new DelimitedLineTokenizer();
         lineTokenizer.setDelimiter(",");
-//        _id,_class,createdat,active,description,maxbid,minbid,productid
         lineTokenizer.setNames("_id","_class","createdat","active","description","maxbid","minbid","productid");
         lineTokenizer.setStrict(false);
         defaultLineMapper.setLineTokenizer(lineTokenizer);

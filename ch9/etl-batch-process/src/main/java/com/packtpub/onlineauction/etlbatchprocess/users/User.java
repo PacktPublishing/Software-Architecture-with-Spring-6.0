@@ -11,19 +11,11 @@ import java.time.LocalDateTime;
 @Builder
 @ToString
 public class User {
-
     private Long id;
-
     private String name;
-
     private String email;
-
     private String phoneNumber;
-
     private String city;
-
     private String state;
-
     private String country;
-
 }

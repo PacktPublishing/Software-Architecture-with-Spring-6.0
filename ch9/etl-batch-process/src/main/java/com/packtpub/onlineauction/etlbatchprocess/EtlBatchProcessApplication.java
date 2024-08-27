@@ -3,6 +3,8 @@ package com.packtpub.onlineauction.etlbatchprocess;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobExecution;
+import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.boot.SpringApplication;
@@ -23,6 +25,10 @@ public class EtlBatchProcessApplication {
     private final JobLauncher jobLauncher;
     private final Job job;
 
+    private static final String BIDS_FILE = "../data-files/Bids.csv";
+    private static final String  USERS_FILE = "../data-files/Users.csv";
+    private static final String  PRODUCTS_FILE = "../data-files/Products.csv";
+    private static final String  AUCTIONS_FILE = "../data-files/Auctions.csv";
 
     public EtlBatchProcessApplication(JobLauncher jobLauncher, Job job) {
         this.jobLauncher = jobLauncher;
@@ -37,24 +43,19 @@ public class EtlBatchProcessApplication {
     }
 
     @Scheduled(fixedRate = 2000)
-    public void importBidsFile() throws Exception {
-        String bidsFile = "../data-files/Bids.csv";
-        String usersFile = "../data-files/Users.csv";
-        String productsFile = "../data-files/Products.csv";
-        String auctionsFile = "../data-files/Auctions.csv";
+    public void importFiles() throws Exception {
 
-        val jobParameters = new JobParametersBuilder()
+        JobParameters jobParameters = new JobParametersBuilder()
                 .addDate("timestamp", Calendar.getInstance().getTime())
-                .addString("bidsFile", bidsFile)
-                .addString("usersFile", usersFile)
-                .addString("productsFile", productsFile)
-                .addString("auctionsFile", auctionsFile)
+                .addString("usersFile", USERS_FILE)
+                .addString("bidsFile", BIDS_FILE)
+                .addString("productsFile", PRODUCTS_FILE)
+                .addString("auctionsFile", AUCTIONS_FILE)
                 .toJobParameters();
 
-        val jobExecution = jobLauncher.run(job, jobParameters);
+        JobExecution jobExecution = jobLauncher.run(job, jobParameters);
         while (jobExecution.isRunning()) {
-            log.info("processing job execution...");
+            log.info("Processing job execution...");
         }
     }
-
 }

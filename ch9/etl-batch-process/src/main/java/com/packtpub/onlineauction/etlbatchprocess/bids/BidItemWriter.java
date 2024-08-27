@@ -1,5 +1,6 @@
 package com.packtpub.onlineauction.etlbatchprocess.bids;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
@@ -11,13 +12,10 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 
 @Component
+@RequiredArgsConstructor
 public class BidItemWriter implements ItemWriter<Bid> {
 
     private final JdbcTemplate jdbcTemplate;
-
-    public BidItemWriter(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     @Override
     public void write(Chunk<? extends Bid> bids) throws Exception {

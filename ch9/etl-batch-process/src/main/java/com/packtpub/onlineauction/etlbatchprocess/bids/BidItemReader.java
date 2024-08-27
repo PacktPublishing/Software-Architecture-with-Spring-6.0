@@ -1,6 +1,5 @@
 package com.packtpub.onlineauction.etlbatchprocess.bids;
 
-import lombok.val;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.LineMapper;
@@ -24,8 +23,8 @@ public class BidItemReader extends FlatFileItemReader<BidDto> {
     }
 
     private LineMapper<BidDto> lineMapper() {
-        val defaultLineMapper = new DefaultLineMapper<BidDto>();
-        val lineTokenizer = new DelimitedLineTokenizer();
+        DefaultLineMapper<BidDto> defaultLineMapper = new DefaultLineMapper<>();
+        DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer();
         lineTokenizer.setDelimiter(",");
         lineTokenizer.setNames("_id", "_class", "amount", "auctionId", "createdAt", "userId");
         lineTokenizer.setStrict(false);
