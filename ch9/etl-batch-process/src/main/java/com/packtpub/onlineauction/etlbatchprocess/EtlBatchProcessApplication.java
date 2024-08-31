@@ -42,7 +42,7 @@ public class EtlBatchProcessApplication {
                 .registerShutdownHook();
     }
 
-    @Scheduled(fixedRate = 2000)
+    @Scheduled(fixedRate = 60000)
     public void importFiles() throws Exception {
 
         JobParameters jobParameters = new JobParametersBuilder()

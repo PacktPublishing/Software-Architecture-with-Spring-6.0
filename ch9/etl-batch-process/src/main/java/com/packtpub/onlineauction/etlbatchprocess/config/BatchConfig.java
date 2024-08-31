@@ -52,10 +52,10 @@ public class BatchConfig {
     private final ItemWriter<Product> productItemWriter;
 
     @Bean
-    public Job importBids(final JobRepository jobRepository, final PlatformTransactionManager transactionManager) {
+    public Job importFiles(final JobRepository jobRepository, final PlatformTransactionManager transactionManager) {
         return new JobBuilder("importBids", jobRepository)
-                .start(importBidsStep(jobRepository, transactionManager))
-                .next(importUsersStep(jobRepository, transactionManager))
+                .start(importUsersStep(jobRepository, transactionManager))
+                .next(importBidsStep(jobRepository, transactionManager))
                 .next(importProductsStep(jobRepository, transactionManager))
                 .next(importAuctionsStep(jobRepository, transactionManager))
                 .next(renameFilesStep(jobRepository, transactionManager, List.of("bidsFile", "usersFile", "productsFile", "auctionsFile")))

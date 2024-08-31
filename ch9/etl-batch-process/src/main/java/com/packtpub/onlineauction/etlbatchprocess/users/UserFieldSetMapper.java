@@ -9,8 +9,6 @@ import java.time.format.DateTimeFormatter;
 
 public class UserFieldSetMapper implements FieldSetMapper<UserDto> {
 
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSX");
-
     @Override
     public UserDto mapFieldSet(final FieldSet fieldSet) throws BindException {
         return UserDto.builder()

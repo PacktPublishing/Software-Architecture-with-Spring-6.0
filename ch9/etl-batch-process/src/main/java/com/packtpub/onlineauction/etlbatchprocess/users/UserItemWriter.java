@@ -24,7 +24,7 @@ public class UserItemWriter implements ItemWriter<User> {
                     @Override
                     public void setValues(PreparedStatement ps, int i) throws SQLException {
                         User user = users.getItems().get(i);
-                        ps.setLong(1, user.getId()); // Assuming id is of type Long
+                        ps.setLong(1, user.getId());
                         ps.setString(2, user.getCity());
                         ps.setString(3, user.getCountry());
                         ps.setString(4, user.getEmail());
@@ -40,5 +40,4 @@ public class UserItemWriter implements ItemWriter<User> {
                 }
         );
     }
-
 }

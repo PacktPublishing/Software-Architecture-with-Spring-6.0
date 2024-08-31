@@ -24,17 +24,13 @@ public class UserItemReader extends FlatFileItemReader<UserDto> {
     }
 
     private LineMapper<UserDto> lineMapper() {
-        val defaultLineMapper = new DefaultLineMapper<UserDto>();
-        val lineTokenizer = new DelimitedLineTokenizer();
+        var defaultLineMapper = new DefaultLineMapper<UserDto>();
+        var lineTokenizer = new DelimitedLineTokenizer();
         lineTokenizer.setDelimiter(",");
         lineTokenizer.setNames("id","city","country","email","name","phone_number","state");
         lineTokenizer.setStrict(false);
         defaultLineMapper.setLineTokenizer(lineTokenizer);
-        defaultLineMapper.setFieldSetMapper(bidsFieldSetMapper());
+        defaultLineMapper.setFieldSetMapper(new UserFieldSetMapper());
         return defaultLineMapper;
-    }
-
-    private FieldSetMapper<UserDto> bidsFieldSetMapper() {
-        return new UserFieldSetMapper();
     }
 }
