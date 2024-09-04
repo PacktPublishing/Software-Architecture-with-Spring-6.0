@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 public class UserItemReader extends FlatFileItemReader<UserDto> {
 
     public UserItemReader(@Value("#{jobParameters['usersFile']}") String usersFile) {
-        this.setName("BID_READER");
+        this.setName("USER_READER");
         this.setLinesToSkip(1);
         this.setLineMapper(lineMapper());
         this.setStrict(false);
