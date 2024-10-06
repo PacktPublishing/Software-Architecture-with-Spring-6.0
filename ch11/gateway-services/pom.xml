@@ -102,6 +102,12 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<jvmArguments>-javaagent:/Users/wanderson/newrelic/newrelic.jar</jvmArguments>
+					<systemPropertyVariables>
+						<newrelic.config.file>/Users/wanderson/newrelic/newrelic-gateway-services.yml</newrelic.config.file>
+					</systemPropertyVariables>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
