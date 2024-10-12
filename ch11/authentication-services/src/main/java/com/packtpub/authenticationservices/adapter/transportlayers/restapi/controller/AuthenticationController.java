@@ -26,9 +26,9 @@ public class AuthenticationController {
 
     @PostMapping
     public ResponseEntity<AuthenticationResponse> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest, @RequestHeader HttpHeaders headers) throws Exception {
-        log.info("INICIO AUTHENTICATION");
+        log.info(" START PROCESS OF AUTHENTICATION");
         final Optional<String> token = generateTokenUseCase.execute(authenticationRequest.getUsername(), authenticationRequest.getPassword());
-        log.info("FIM AUTHENTICATION");
+        log.info("END PROCESS OF AUTHENTICATION");
         return ResponseEntity.ok(new AuthenticationResponse(token.get()));
     }
 

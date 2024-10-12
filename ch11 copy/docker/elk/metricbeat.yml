@@ -1,0 +1,63 @@
+metricbeat.config.modules:
+  path: ${path.config}/modules.d/*.yml
+  reload.enabled: false
+
+# Configure output to Elasticsearch (or Logstash if you prefer)
+output.elasticsearch:
+  hosts: ["http://elasticsearch:9200"]  # Update with your ElasticSearch host
+  username: "elastic"  # Set your username if necessary
+  password: "changeme"
+
+# Alternatively, you can use Logstash
+# output.logstash:
+#   hosts: ["logstash:5044"]
+
+# Setup dashboards
+setup.dashboards.enabled: true
+
+# Setup Kibana to view dashboards
+setup.kibana:
+  host: "http://kibana:5601"  # Point to your Kibana instance
+
+# Enable System module to capture CPU, memory, disk metrics
+metricbeat.modules:
+# - module: system
+#   period: 10s
+#   metricsets:
+#     - cpu
+#     - memory
+#     - network
+#     - diskio
+#     - filesystem
+#   processors:
+#     - add_host_metadata: ~
+#     - add_cloud_metadata: ~
+#metricbeat.modules:
+- module: prometheus
+  period: 10s
+  hosts:
+    - "http://localhost:8761/actuator/prometheus"
+    - "http://localhost:8888/actuator/prometheus"
+    - "http://localhost:8072/actuator/prometheus"
+    - "http://localhost:8082/actuator/prometheus"
+    - "http://localhost:8081/actuator/prometheus"
+    - "http://localhost:8080/actuator/prometheus"
+  metrics_path: /actuator/prometheus
+
+# Enable JMX module for JVM metrics exposed by Micrometer
+# - module: jmx
+#   metricsets: ["mbean"]
+#   hosts: ["localhost:1099"]  # Replace with your Micrometer exposed JMX endpoint
+#   namespace: "jvm"
+#   period: 10s
+#   jmx.mappings:
+#     - mbean: 'java.lang:type=Memory'
+#       attributes:
+#         - attr: HeapMemoryUsage
+#           field: jvm.memory.heap
+#     - mbean: 'java.lang:type=GarbageCollector,name=G1 Young Generation'
+#       attributes:
+#         - attr: CollectionTime
+#           field: jvm.gc.time
+#         - attr: CollectionCount
+#           field: jvm.gc.count

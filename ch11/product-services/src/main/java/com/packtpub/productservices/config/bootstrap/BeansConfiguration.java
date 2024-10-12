@@ -1,6 +1,6 @@
 package com.packtpub.productservices.config.bootstrap;
 
-import io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter;
+//import io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import com.packtpub.productservices.internal.repositories.ProductRepository;
@@ -30,10 +30,10 @@ public class BeansConfiguration {
     public AuthenticationRestApi authenticationRestApi(RestClient restClient, DiscoveryClient discoveryClient){
        return new AuthenticationRestApi(restClient, discoveryClient);
     }
-
-    @Bean
-    public OtlpGrpcSpanExporter otlpHttpSpanExporter(@Value("${tracing.url}") String url) {
-        return OtlpGrpcSpanExporter.builder().setEndpoint(url).build();
-    }
+//
+//    @Bean
+//    public OtlpGrpcSpanExporter otlpHttpSpanExporter(@Value("${tracing.url}") String url) {
+//        return OtlpGrpcSpanExporter.builder().setEndpoint(url).build();
+//    }
 
 }
