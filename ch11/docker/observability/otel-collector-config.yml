@@ -18,37 +18,34 @@
 #       receivers: [otlp]
 #       exporters: [debug, elasticsearch]
 
+# 
+
 receivers:
   otlp:
     protocols:
-      http:
-        endpoint: "0.0.0.0:4318"  # OpenTelemetry Collector HTTP receiver
       grpc:
-        endpoint: "0.0.0.0:55680"  # Optional OpenTelemetry gRPC receiver
-
+        endpoint: "0.0.0.0:4317"
+      http:
+        endpoint: "0.0.0.0:4318"
+processors:
+  cumulativetodelta: {}
+  filter:
+    metrics:
+      exclude:
+        match_type: regexp
+        metric_names:
+          - "jvm.gc.pause"
 exporters:
   debug:
-    verbosity: detailed  # For detailed debugging information
-  prometheus:
-    endpoint: "0.0.0.0:8888"  # Prometheus metrics endpoint
+    verbosity: detailed
   elasticsearch:
-    endpoint: "http://elasticsearch:9200"  # Elasticsearch endpoint for traces
-    index: "apm-traces"  # Index for traces
+    endpoints: ["http://elasticsearch:9200"]
   otlp:
-    endpoint: "jaeger:4319"  # Jaeger's OTLP gRPC endpoint (default for OTLP)
-
-processors:
-  batch:
-    timeout: 10s  # Process spans in batches to improve performance
-    send_batch_size: 512
-    send_batch_max_size: 1024
+    endpoint: "http://localhost:4318"
 
 service:
   pipelines:
     metrics:
       receivers: [otlp]
-      exporters: [debug, elasticsearch]
-    traces:
-      receivers: [otlp]  # Set OTLP as the trace receiver
-      processors: [batch]  # Batch processor to manage spans
-      exporters: [debug, elasticsearch, otlp]  # Export to Jaeger (via OTLP), Elasticsearch, and debug
+      processors: [cumulativetodelta, filter]
+      exporters: [debug, elasticsearch, otlp]

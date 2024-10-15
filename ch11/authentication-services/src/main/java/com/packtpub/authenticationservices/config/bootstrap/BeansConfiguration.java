@@ -7,6 +7,8 @@ import com.packtpub.authenticationservices.config.security.CustomAuthenticationS
 import com.packtpub.authenticationservices.internal.repositories.AuthenticationManagerRepository;
 import com.packtpub.authenticationservices.internal.usecases.GenerateTokenUseCase;
 import com.packtpub.authenticationservices.internal.usecases.ValidateTokenUseCase;
+import io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,15 +37,15 @@ public class BeansConfiguration {
         return new CustomAuthenticationSuccessHandler(tokenJwt);
     }
 
-    @LoadBalanced
-    @Bean
-    public RestClient.Builder restClient() {
-        return RestClient.builder();
-    }
-
-//
+//    @LoadBalanced
 //    @Bean
-//    public OtlpGrpcSpanExporter otlpHttpSpanExporter(@Value("${tracing.url}") String url) {
-//        return OtlpGrpcSpanExporter.builder().setEndpoint(url).build();
+//    public RestClient.Builder restClient() {
+//        return RestClient.builder();
 //    }
+
+
+    @Bean
+    public OtlpGrpcSpanExporter otlpHttpSpanExporter(@Value("${tracing.url}") String url) {
+        return OtlpGrpcSpanExporter.builder().setEndpoint(url).build();
+    }
 }

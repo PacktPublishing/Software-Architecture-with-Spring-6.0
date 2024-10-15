@@ -80,21 +80,21 @@ services:
     image: jaegertracing/all-in-one:latest
     container_name: jaeger
     ports:
+      - "6831:6831/udp" # UDP port for Jaeger agent
+      - "14268:14268" # HTTP port for spans
       - "16686:16686" # the jaeger UI 
       - "4317:4317" # the OpenTelemetry collector grpc 
       - "4319:4318"      # Jaeger OTLP HTTP endpoint (Changed to avoid conflict)
-      # - "4317:4317" # the OpenTelemetry collector grpc 
-
     environment:
       - COLLECTOR_OTLP_ENABLED=true
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4318
+      - LOG_LEVEL=debug
     networks:
       - elastic
     restart: always
 
 volumes:
   esdata:
-    driver: local
-  metricbeat-data01:
     driver: local
 
 networks:
