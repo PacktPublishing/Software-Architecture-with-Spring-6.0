@@ -85,6 +85,11 @@
 			<artifactId>opentelemetry-exporter-otlp</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
@@ -111,12 +116,12 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<jvmArguments>-javaagent:/Users/wanderson/newrelic/newrelic.jar</jvmArguments>
-					<systemPropertyVariables>
-						<newrelic.config.file>/Users/wanderson/newrelic/newrelic-gateway-services.yml</newrelic.config.file>
-					</systemPropertyVariables>
-				</configuration>
+<!--				<configuration>-->
+<!--					<jvmArguments>-javaagent:/Users/wanderson/newrelic/newrelic.jar</jvmArguments>-->
+<!--					<systemPropertyVariables>-->
+<!--						<newrelic.config.file>/Users/wanderson/newrelic/newrelic-gateway-services.yml</newrelic.config.file>-->
+<!--					</systemPropertyVariables>-->
+<!--				</configuration>-->
 			</plugin>
 		</plugins>
 	</build>
