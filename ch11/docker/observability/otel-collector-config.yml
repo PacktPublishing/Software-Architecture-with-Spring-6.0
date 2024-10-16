@@ -1,25 +1,3 @@
-# receivers:
-#   otlp:
-#     protocols:
-#       http:
-#         endpoint: "0.0.0.0:4318"
-
-# exporters:
-#   debug:
-#     verbosity: detailed
-#   prometheus:
-#     endpoint: "0.0.0.0:8888"
-#   elasticsearch:
-#     endpoint: "http://elasticsearch:9200"
-
-# service:
-#   pipelines:
-#     metrics:
-#       receivers: [otlp]
-#       exporters: [debug, elasticsearch]
-
-# 
-
 receivers:
   otlp:
     protocols:
@@ -44,8 +22,6 @@ exporters:
     endpoint: "http://localhost:4318"
   zipkin:
     endpoint: "http://zipkin:9411/api/v2/spans"  # Zipkin collector endpoint
-
-
 service:
   pipelines:
     logs:
