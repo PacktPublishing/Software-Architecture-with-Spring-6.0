@@ -36,7 +36,7 @@ public class UserJpaDatasource implements UserRepository {
                 userEntity.getCity(),
                 userEntity.getState(),
                 userEntity.getCountry(),
-                userEntity.getRoles().stream().map(this::toRoleDomain).collect(Collectors.toSet())
+                userEntity.getRoles() != null ? userEntity.getRoles().stream().map(this::toRoleDomain).collect(Collectors.toSet()) : null
         );
     }
 

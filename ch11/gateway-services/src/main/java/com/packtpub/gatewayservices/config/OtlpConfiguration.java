@@ -1,3 +1,4 @@
+
 package com.packtpub.gatewayservices.config;
 
 import io.opentelemetry.exporter.otlp.http.trace.OtlpHttpSpanExporter;
