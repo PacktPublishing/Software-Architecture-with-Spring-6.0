@@ -1,6 +1,6 @@
 package com.packtpub.authenticationservices.config.security;
 
-import com.packtpub.authenticationservices.adapter.datasources.AuthenticationJpaDatasource;
+import com.packtpub.authenticationservices.adapter.datasources.AuthenticationMongoDatasource;
 import com.packtpub.authenticationservices.adapter.datasources.AuthenticationEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,9 +14,9 @@ import java.util.List;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final AuthenticationJpaDatasource authenticationRepository;
+    private final AuthenticationMongoDatasource authenticationRepository;
 
-    public CustomUserDetailsService(AuthenticationJpaDatasource authenticationRepository) {
+    public CustomUserDetailsService(AuthenticationMongoDatasource authenticationRepository) {
         this.authenticationRepository = authenticationRepository;
     }
 
