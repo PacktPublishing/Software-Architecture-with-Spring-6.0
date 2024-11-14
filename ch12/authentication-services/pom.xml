@@ -150,13 +150,22 @@
         </dependency>
 
         <!-- Contract Testing -->
+<!--        <dependency>-->
+<!--            <groupId>au.com.dius.pact</groupId>-->
+<!--            <artifactId>consumer</artifactId>-->
+<!--            <version>4.6.15</version>-->
+<!--        </dependency>-->
+
         <dependency>
-            <groupId>au.com.dius.pact</groupId>
-            <artifactId>consumer</artifactId>
-            <version>4.6.15</version>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-contract-stub-runner</artifactId>
+            <scope>test</scope>
         </dependency>
-
-
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-contract-wiremock</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>

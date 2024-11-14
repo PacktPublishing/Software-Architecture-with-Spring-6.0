@@ -134,6 +134,13 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-contract-verifier</artifactId>
+            <version>4.1.4</version>
+        </dependency>
+
+
     </dependencies>
 
     <dependencyManagement>
@@ -186,6 +193,18 @@
 <!--                        <newrelic.config.file>/Users/wanderson/newrelic/newrelic-user-services.yml</newrelic.config.file>-->
 <!--                    </systemPropertyVariables>-->
 <!--                </configuration>-->
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-contract-maven-plugin</artifactId>
+                <extensions>true</extensions>
+                <version>4.1.4</version>
+                <configuration>
+                    <baseClassForTests>
+                        com.packtpub.userservices.adapter.transportlayers.restapi.controller.contrattesting.producer.IntegrationTestBase
+                    </baseClassForTests>
+                    <testFramework>JUNIT5</testFramework>
+                </configuration>
             </plugin>
         </plugins>
     </build>
