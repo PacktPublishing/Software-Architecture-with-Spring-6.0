@@ -2,6 +2,7 @@ package com.packtpub.onlineauction.controller;
 
 import com.packtpub.onlineauction.entity.Product;
 import com.packtpub.onlineauction.service.ProductService;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,4 +43,12 @@ public class ProductController {
         model.addAttribute("products", productService.getAllProducts());
         return "product-list";
     }
+
+    @GetMapping("/{id}")
+    public String listProducts(Model model, @PathVariable("id") Integer id) {
+        model.addAttribute("product",
+                productService.getProductById(id));
+        return "product-item";
+    }
+
 }

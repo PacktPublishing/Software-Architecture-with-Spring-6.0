@@ -1,6 +1,6 @@
 package com.packtpub.onlineauction.config;
 
-import com.packtpub.onlineauction.service.security.UserDetailsServiceCustom;
+import com.packtpub.onlineauction.service.security.UserDetailsCustomService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -22,7 +22,7 @@ public class SecurityConfiguration {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return new UserDetailsServiceCustom();
+        return new UserDetailsCustomService();
     }
 
     @Bean
