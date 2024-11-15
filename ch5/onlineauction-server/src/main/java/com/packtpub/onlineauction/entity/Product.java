@@ -6,7 +6,7 @@ import org.apache.commons.codec.binary.Base64;
 
 @Data
 @Entity
-@Table(name = "product")
+@Table(name = "products")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

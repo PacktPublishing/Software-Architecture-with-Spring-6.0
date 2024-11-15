@@ -27,7 +27,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
     private final UserDetailsCustomService userDetailsService;
 
-    private static final String AUTH_PATH = "/api/auth/login";
+    private static final String AUTH_PATH = "/api/auth";
     private static final String SWAGGER_PATH = "/swagger-ui/index.html";
 
     @Override

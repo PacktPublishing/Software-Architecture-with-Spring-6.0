@@ -1,6 +1,6 @@
 package com.packtpub.onlineauction.service.security;
 
-import com.packtpub.onlineauction.entity.Authentication;
+import com.packtpub.onlineauction.entity.User;
 import com.packtpub.onlineauction.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,14 +20,14 @@ public class UserDetailsCustomService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Authentication authentication = userRepository.findByUsername(username)
+        User authentication = userRepository.findByUsername(username)
                 .orElseThrow(() -> new
                         UsernameNotFoundException("User not found with username: " + username));
 
         UserDetailsCustom userDetailsCustom = new UserDetailsCustom(
                 authentication.getUsername(),
                 authentication.getPassword(),
-                authentication.getUser().getRoles().stream()
+                authentication.getRoles().stream()
                         .map(r -> new SimpleGrantedAuthority(r.getName()))
                         .collect(Collectors.toList()),
                 authentication.isEnabled(),

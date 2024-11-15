@@ -101,10 +101,12 @@ The book provides sample code for each major chapter, allowing readers to experi
         - User: auction_app
         - Password: auction123
         - Database: auction_db
+    7. OpenAPI documentation can be accessed at http://localhost:8080/swagger-ui/index.html.
+
     ### To set up environment and run the project (Web Client):
     1. Go to the project's folder: onlineauctiononlineauction-client-web
     2. Execute the command: ```npm install```
-    3. Execute the command: ```npm run```
+    3. Execute the command: ```npm start  ```
     4. Access the URL at http://localhost:3000/
     5. Enter with the credencial:
        - Administrator
@@ -123,7 +125,7 @@ The book provides sample code for each major chapter, allowing readers to experi
     6. Execute the command: ```npx expo install --check```
     7. Execute the command: ```npm install expo@latest```
     8. Execute the command: ```npx expo install @expo/metro-runtime```
-    9. Execute the command: ```expo npx expo start```
+    9. Execute the command: ```npx expo start```
     10. To see the application in the web browser, press w
     11. To see the application on the Expo Go app, install Expo Go on your mobile device and scan the QR code.
     12. Enter with the credencial:
@@ -160,7 +162,7 @@ The author, Wanderson Xesquevixos, is a seasoned software engineer and architect
 
 ## Feedback and Contributions
 
-Your feedback is invaluable! Feel free to open issues, suggest improvements, or share your thoughts. This repository will be updated with any errata and additional resources to accompany the book.
+Your feedback is invaluable! Feel free to contact us about issues, suggest improvements, or share your thoughts. This repository will be updated with any errata and additional resources to accompany the book.
 
 
 **Thank you for embarking on this journey in software architecture! Happy coding and architecting!**

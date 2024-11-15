@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AccountStatusException;
-import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -48,6 +47,13 @@ public class GlobalException extends ResponseEntityExceptionHandler {
             }
             case SignatureException ex -> {
                 errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(403), exception.getMessage());
+                errorDetail.setProperty("description", "The JWT signature is invalid");
+                yield errorDetail;
+
+
+            }
+            case io.jsonwebtoken.security.SignatureException ex -> {
+                errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(401), exception.getMessage());
                 errorDetail.setProperty("description", "The JWT signature is invalid");
                 yield errorDetail;
             }

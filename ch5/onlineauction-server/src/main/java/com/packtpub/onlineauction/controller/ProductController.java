@@ -10,7 +10,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,19 +24,6 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
-
-//    @PostMapping("/add")
-//    public String saveProduct(Product product,
-//                              @RequestParam("file") MultipartFile file,
-//                              RedirectAttributes redirectAttributes) {
-//        try {
-//            productService.saveProduct(product, file);
-//            redirectAttributes.addFlashAttribute("message", "Product saved successfully!");
-//        } catch (IOException e) {
-//            redirectAttributes.addFlashAttribute("message", "Failed to save product");
-//        }
-//        return "redirect:/products";
-//    }
 
     @Operation(summary = "Get all users", description = "Returns a list of all users")
     @ApiResponses(value = {

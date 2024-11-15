@@ -21,32 +21,31 @@ public class User {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "username")
+    private String username;
 
-    @Column(name = "email")
-    private String email;
+    @Column(name = "password")
+    private String password;
 
-    @Column(name = "phoneNumber")
-    private String phoneNumber;
+    @Column(name = "account_non_expired")
+    private boolean accountNonExpired;
 
-    @Column(name = "city")
-    private String city;
+    @Column(name = "is_enabled")
+    private boolean isEnabled;
 
-    @Column(name = "state")
-    private String state;
+    @Column(name = "account_non_locked")
+    private boolean accountNonLocked;
 
-    @Column(name = "country")
-    private int country;
+    @Column(name = "credentials_non_expired")
+    private boolean credentialsNonExpired;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    @JoinTable(
+            name = "user_role", // Join table
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), // Foreign key to User
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id") // Foreign key to Role
+    )
     private Set<Role> roles;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "authentication_id", referencedColumnName = "id")
-    private Authentication authentication;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Product> products = new ArrayList<>();
