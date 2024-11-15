@@ -24,14 +24,14 @@ The book provides sample code for each major chapter, allowing readers to experi
       - 08-interface-segregation-library-application
       - 09-dependency-inversion-library-application
 
-- ## Chapter 4 : Monolithic architecture
+- ## Chapter 4 : Monolithic Architecture
   
     - ch4:
       - docker/
         - postgresql/
           - init.sql -> SQL DDL and DML
         - .env -> PostgreSQL credentials
-        - docker-compose.yml -> Run an image of PostgreSQL with p
+        - docker-compose.yml -> Run an image of PostgreSQL and populate it with data.
       - onlineauction/ 
   #### Prerequisites:
       - Java 21
@@ -52,16 +52,99 @@ The book provides sample code for each major chapter, allowing readers to experi
         - Password: auction123
         - Database: auction_db
     ### Access the application
-    1. Access the URL at: http://localhost:8080
+    1. Access the URL at http://localhost:8080
     2. Click at login menu
     3. Enter with the credencial:
-       - Username: admin  or user
-       - Password: test123
+       - Administrator
+          - Username: admin
+          - Password: test123
+       - User
+          - Username: user
+          - Password: test123
 
   ## References
     - https://hub.docker.com/_/postgres
     
-      
+  
+  - ## Chapter 5 : Client-Server Architecture
+  
+    - ch5:
+      - docker/
+        - postgresql/
+          - init.sql -> SQL DDL and DML
+        - .env -> PostgreSQL credentials
+        - docker-compose.yml -> Run an image of PostgreSQL and populate it with data.
+      - onlineauction/ -> Server application
+      - onlineauction-client-mobile -> Mobile application (Client)
+      - onlineauction-client-web -> Web application (Client)
+
+  #### Prerequisites:
+      - Java 21
+      - Docker and Docker Compose
+      - Maven 3.9.9
+      - Node.js and npm
+      - React
+      - React Native
+      - Expo Go App
+
+
+  ## Instructions: 
+  ### To set up environment and run the project (Server):
+
+    1. Go the docker ch5/docker folder
+    2. Execute the command: ```docker-compose up -d```
+    3. Go to the project's folder: onlineauction
+    4. Execute the command: ```mvn clean package```
+    5. To run the project execute the command:  ```mvn spring-boot:run```
+    6. To connect to the PostgreSQL: 
+        - Url: jdbc:postgresql://localhost:5432/auction_db
+        - User: auction_app
+        - Password: auction123
+        - Database: auction_db
+    ### To set up environment and run the project (Web Client):
+    1. Go to the project's folder: onlineauctiononlineauction-client-web
+    2. Execute the command: ```npm install```
+    3. Execute the command: ```npm run```
+    4. Access the URL at http://localhost:3000/
+    5. Enter with the credencial:
+       - Administrator
+          - Username: admin
+          - Password: test123
+       - User
+          - Username: user
+          - Password: test123
+
+    ### To set up environment and run the project (Mobile Client):
+    1. Go to the project's folder: onlineauctiononlineauction-client-mobile
+    2. Execute the command: ```npm install -g expo-cli```
+    3. Execute the command: ```npm install```
+    4. Execute the command: ```expo doctor --fix-dependencies```
+    5. Execute the command: ```npx expo-doctor```
+    6. Execute the command: ```npx expo install --check```
+    7. Execute the command: ```npm install expo@latest```
+    8. Execute the command: ```npx expo install @expo/metro-runtime```
+    9. Execute the command: ```expo npx expo start```
+    10. To see the application in the web browser, press w
+    11. To see the application on the Expo Go app, install Expo Go on your mobile device and scan the QR code.
+    12. Enter with the credencial:
+        - Administrator
+          - Username: admin
+          - Password: test123
+        - User
+          - Username: user
+          - Password: test123
+    
+   PS: Some commands may not be necessary, but following these steps will allow you to run the application and view it through Expo Go. 
+   You may update the dependencies with the command ``` expo install <dependency> ```.
+    In this case, nothing is better than asking our friend to chat GTP or something else to provide us with the command. ;)
+   
+
+  ## References
+    - https://hub.docker.com/_/postgres
+    - https://nodejs.org/en/download/package-manager
+    - https://expo.dev/go
+    - https://react.dev/
+    - https://reactnative.dev/
     
 
 ### Who This Book is For

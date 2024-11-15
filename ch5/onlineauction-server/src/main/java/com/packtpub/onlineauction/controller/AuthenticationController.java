@@ -3,7 +3,7 @@ package com.packtpub.onlineauction.controller;
 import com.packtpub.onlineauction.dto.request.AuthenticationRequest;
 import com.packtpub.onlineauction.dto.response.AuthenticationResponse;
 import com.packtpub.onlineauction.service.security.JwtService;
-import com.packtpub.onlineauction.service.security.CustomUserDetailsService;
+import com.packtpub.onlineauction.service.security.UserDetailsCustomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,7 +20,7 @@ public class AuthenticationController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private CustomUserDetailsService userDetailsService;
+    private UserDetailsCustomService userDetailsService;
 
     @Autowired
     private JwtService jwtService;

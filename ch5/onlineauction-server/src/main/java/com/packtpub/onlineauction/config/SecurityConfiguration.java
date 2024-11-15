@@ -1,6 +1,6 @@
 package com.packtpub.onlineauction.config;
 
-import com.packtpub.onlineauction.service.security.CustomUserDetailsService;
+import com.packtpub.onlineauction.service.security.UserDetailsCustomService;
 import com.packtpub.onlineauction.service.security.filters.JwtAuthenticationFilter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -36,7 +36,7 @@ import java.io.IOException;
 public class SecurityConfiguration {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
-    private final CustomUserDetailsService userDetailsService;
+    private final UserDetailsCustomService userDetailsService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

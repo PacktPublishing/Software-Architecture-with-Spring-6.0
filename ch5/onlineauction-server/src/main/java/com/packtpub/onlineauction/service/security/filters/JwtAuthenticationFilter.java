@@ -1,7 +1,7 @@
 package com.packtpub.onlineauction.service.security.filters;
 
 import com.packtpub.onlineauction.service.security.JwtService;
-import com.packtpub.onlineauction.service.security.CustomUserDetailsService;
+import com.packtpub.onlineauction.service.security.UserDetailsCustomService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,7 +25,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final HandlerExceptionResolver handlerExceptionResolver;
     private final JwtService jwtService;
-    private final CustomUserDetailsService userDetailsService;
+    private final UserDetailsCustomService userDetailsService;
 
     private static final String AUTH_PATH = "/api/auth/login";
     private static final String SWAGGER_PATH = "/swagger-ui/index.html";
