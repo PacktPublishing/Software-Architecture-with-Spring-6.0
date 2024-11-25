@@ -1,0 +1,36 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: "0.0.0.0:4317"
+      http:
+        endpoint: "0.0.0.0:4318"
+# processors:
+#   cumulativetodelta: {}
+#   filter:
+#     metrics:
+#       exclude:
+#         match_type: regexp
+#         metric_names:
+#           - "jvm.gc.pause"
+exporters:
+  # debug:
+  #   verbosity: detailed
+  elasticsearch:
+    endpoints: ["http://elasticsearch:9200"]
+  otlp:
+    endpoint: "http://localhost:4318"
+  zipkin:
+    endpoint: "http://zipkin:9411/api/v2/spans"  # Zipkin collector endpoint
+service:
+  pipelines:
+    logs:
+      receivers: [otlp]
+      exporters: [elasticsearch, otlp]
+    metrics:
+      receivers: [otlp]
+      # processors: [cumulativetodelta, filter]
+      exporters: [elasticsearch, otlp]
+    traces:
+      receivers: [otlp]
+      exporters: [otlp, zipkin] 
