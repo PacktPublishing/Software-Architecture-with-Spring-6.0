@@ -28,6 +28,9 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticationResponse> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest, @RequestHeader HttpHeaders headers) throws Exception {
         log.info(" START PROCESS OF AUTHENTICATION");
         final Optional<String> token = generateTokenUseCase.execute(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+
+        Thread.sleep(3000);
+
         log.info("END PROCESS OF AUTHENTICATION");
         return ResponseEntity.ok(new AuthenticationResponse(token.get()));
     }

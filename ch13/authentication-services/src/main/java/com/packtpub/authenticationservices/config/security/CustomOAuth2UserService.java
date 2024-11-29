@@ -1,34 +1,32 @@
 package com.packtpub.authenticationservices.config.security;
 
-import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
+import org.springframework.security.oauth2.client.userinfo.DefaultReactiveOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.client.userinfo.ReactiveOAuth2UserService;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 @Service
-public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
+public class CustomOAuth2UserService implements ReactiveOAuth2UserService<OAuth2UserRequest, OAuth2User> {
+
+    private final DefaultReactiveOAuth2UserService delegate = new DefaultReactiveOAuth2UserService();
 
     @Override
-    public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-        OAuth2User oAuth2User = new DefaultOAuth2UserService().loadUser(userRequest);
+    public Mono<OAuth2User> loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+        return delegate
+                .loadUser(userRequest)
+                .flatMap(oAuth2User -> {
+                    // Extract user attributes
+                    String googleId = oAuth2User.getAttribute("sub");
+                    String email = oAuth2User.getAttribute("email");
+                    String name = oAuth2User.getAttribute("name");
 
-        String googleId = oAuth2User.getAttribute("sub");
-        String email = oAuth2User.getAttribute("email");
-        String name = oAuth2User.getAttribute("name");
+                    // Simulate any additional processing or validation if required
+                    // Example: Add custom claims or attributes to the user
 
-        // Save or update user in DB
-//        Optional<User> existingUser = userRepository.findByGoogleId(googleId);
-//
-//        if (existingUser.isEmpty()) {
-//            User newUser = new User();
-//            newUser.setGoogleId(googleId);
-//            newUser.setEmail(email);
-//            newUser.setName(name);
-//            userRepository.save(newUser);
-//        }
-
-        return oAuth2User;
+                    return Mono.just(oAuth2User);
+                });
     }
 }

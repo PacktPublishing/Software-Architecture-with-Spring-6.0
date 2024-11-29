@@ -1,0 +1,9 @@
+eureka:
+  client:
+    enabled: false
+
+#server:
+#  port: 8082
+#
+producer:
+  port: 8100

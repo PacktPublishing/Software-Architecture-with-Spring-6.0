@@ -20,21 +20,17 @@ echo "Error log initialized at $(date)" > "$ERROR_LOG_FILE"
 for i in $(seq 1 1000); do
   echo "Sending Request #$i"
 
-  # Execute the curl command
-  RESPONSE=$(curl --silent --location "$URL" \
+  # Execute the curl command in the background
+  curl --silent --location "$URL" \
     --header "$HEADER" \
-    --data-raw "$DATA")
-
-  # Check if the curl command succeeded
-  if [ $? -eq 0 ]; then
-    echo "Request #$i successful." >> "$LOG_FILE"
-    echo "$RESPONSE" >> "$LOG_FILE"
-  else
-    echo "Request #$i failed!" >> "$ERROR_LOG_FILE"
-  fi
-
+    --data-raw "$DATA" \
+    >> "$LOG_FILE" 2>> "$ERROR_LOG_FILE" &
+  
   # Optional: Add a small delay between requests to prevent server overload
   sleep 0.1  # 100 milliseconds
 done
+
+# Wait for all background jobs to complete
+wait
 
 echo "Finished all requests at $(date)" >> "$LOG_FILE"

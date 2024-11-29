@@ -5,32 +5,32 @@ import com.packtpub.authenticationservices.config.correlation.CorrelationIdUtil;
 import com.packtpub.authenticationservices.internal.repositories.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClient;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
-import java.net.URI;
 import java.util.List;
 
 @Service
 @Slf4j
 public class UserRestApi implements UserRepository {
 
-    private final RestClient.Builder restClient;
+    private final WebClient webClient;
 
-    public UserRestApi(RestClient.Builder restClient) {
-        this.restClient = restClient;
+    public UserRestApi(WebClient.Builder webClientBuilder) {
+        this.webClient = webClientBuilder.build();
     }
 
-    //     @CircuitBreaker(name = "userServices", fallbackMethod = "getRolesFromCache")
-    @Override
-    public List<String> getRolesByUsername(String username) {
-        RoleResponse result = restClient.build()
-                .get()
-                .uri(URI.create("http://USER-SERVICES/v1/users/" + username + "/roles"))
-                .header("x-correlation-id", CorrelationIdUtil.getCorrelationId())
+    public Flux<String> getRolesByUsername(String username) {
+        return webClient.get()
+                .uri("http://USER-SERVICES/v1/users/{username}/roles", username)
                 .retrieve()
-                .body(RoleResponse.class);
-        return result.getRoles();
+                .onStatus(status -> !status.is2xxSuccessful(),
+                        clientResponse -> clientResponse.bodyToMono(String.class)
+                                .flatMap(errorBody -> Mono.error(new RuntimeException("Error: " + errorBody))))
+                .bodyToFlux(String.class);
     }
+
 
     public List<String> getRolesFromCache(String username, Throwable throwable) {
         System.out.println("Fallback response due to: " + throwable.getMessage());

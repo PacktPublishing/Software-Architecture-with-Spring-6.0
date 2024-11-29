@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 import java.util.Optional;
 
@@ -25,17 +26,18 @@ public class AuthenticationController {
     }
 
     @PostMapping
-    public ResponseEntity<AuthenticationResponse> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest, @RequestHeader HttpHeaders headers) throws Exception {
-        log.info(" START PROCESS OF AUTHENTICATION");
-        final Optional<String> token = generateTokenUseCase.execute(authenticationRequest.getUsername(), authenticationRequest.getPassword());
-        log.info("END PROCESS OF AUTHENTICATION");
-        return ResponseEntity.ok(new AuthenticationResponse(token.get()));
+    public Mono<AuthenticationResponse> createAuthenticationToken(@RequestBody Mono<AuthenticationRequest> authenticationRequestMono) {
+        return authenticationRequestMono
+                .flatMap(authenticationRequest ->
+                        generateTokenUseCase.execute(authenticationRequest.getUsername(), authenticationRequest.getPassword())
+                                .map(AuthenticationResponse::new)
+                );
     }
 
-    @GetMapping("/validate")
-    public ResponseEntity<Boolean> validateToken(@RequestParam String token) {
-        final boolean isTokenValid = validateTokenUseCase.execute(token);
-        return ResponseEntity.ok(isTokenValid);
-
-    }
+//    @GetMapping("/validate")
+//    public ResponseEntity<Boolean> validateToken(@RequestParam String token) {
+//        final boolean isTokenValid = validateTokenUseCase.execute(token);
+//        return ResponseEntity.ok(isTokenValid);
+//
+//    }
 }

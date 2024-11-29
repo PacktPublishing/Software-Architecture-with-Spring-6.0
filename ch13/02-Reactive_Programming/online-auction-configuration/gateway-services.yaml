@@ -1,0 +1,40 @@
+spring:
+  cloud:
+    gateway:
+      discovery.locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: auth
+          uri: lb://authentication-services
+          predicates:
+            - Path=/authentication/**
+          filters:
+            - RewritePath=/authentication/(?<path>.*), /$\{path}
+#            - CustomHeaderFilter
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    gateway:
+      enabled: true
+
+logging:
+  level:
+    com:
+      netflix:
+        eureka: OFF
+        discovery: OFF
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty.http.client: DEBUG

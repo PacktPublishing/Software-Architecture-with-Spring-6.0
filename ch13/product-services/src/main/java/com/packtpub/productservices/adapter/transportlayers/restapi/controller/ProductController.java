@@ -1,32 +1,35 @@
 package com.packtpub.productservices.adapter.transportlayers.restapi.controller;
 
+import com.packtpub.productservices.adapter.datasources.product.service.ProductService;
+import com.packtpub.productservices.adapter.transportlayers.restapi.dto.request.ProductRequest;
 import com.packtpub.productservices.adapter.transportlayers.restapi.dto.response.ProductResponse;
 import com.packtpub.productservices.internal.entity.Product;
+import com.packtpub.productservices.internal.usecases.GetProductsByIdUseCase;
 import com.packtpub.productservices.internal.usecases.GetProductsUseCase;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/v1/products")
 public class ProductController {
 
-    private final GetProductsUseCase getProductsUseCase;
-
-    public ProductController(GetProductsUseCase getProductsUseCase) {
-        this.getProductsUseCase = getProductsUseCase;
-    }
-
+    private final ProductService productService;
 
     @Operation(summary = "Get all products", description = "Returns a list of all products")
     @ApiResponses(value = {
@@ -38,9 +41,20 @@ public class ProductController {
     })
     @GetMapping
     public ResponseEntity<List<ProductResponse>> getProducts() {
-        List<Product> products = getProductsUseCase.execute();
-        List<ProductResponse> productResponses = products.stream().map(n -> new ProductResponse(n.getId(),n.getName(),n.getDescription(),n.getUserId(),n.getPhotoBase64())).collect(Collectors.toList());
-        return ! products.isEmpty() ? new ResponseEntity<>(productResponses, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        List<ProductResponse> productResponses = productService.getAllProducts();
+        return ! productResponses.isEmpty() ? new ResponseEntity<>(productResponses, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ProductResponse getProductsById(@PathVariable  Long id) {
+        return productService.getProductById(id);
+    }
+
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
+    public ProductResponse addProduct(@Valid @RequestBody ProductRequest productRequest) {
+       return productService.addProduct(productRequest);
     }
 
 }

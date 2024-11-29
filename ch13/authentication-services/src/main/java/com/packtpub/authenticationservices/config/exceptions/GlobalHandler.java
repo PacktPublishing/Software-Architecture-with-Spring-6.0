@@ -2,69 +2,66 @@ package com.packtpub.authenticationservices.config.exceptions;
 
 import com.packtpub.authenticationservices.internal.exceptions.BusinessException;
 import com.packtpub.authenticationservices.internal.exceptions.BusinessExceptionResponse;
-import io.jsonwebtoken.ExpiredJwtException;
-import org.springframework.http.HttpStatusCode;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AccountStatusException;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import reactor.core.publisher.Mono;
 
-import java.security.SignatureException;
+import java.util.concurrent.atomic.AtomicReference;
 
 @RestControllerAdvice
-public class GlobalHandler extends ResponseEntityExceptionHandler {
+@Component
+public class GlobalHandler {
 
     @ExceptionHandler(BusinessException.class)
-    public ResponseEntity<BusinessExceptionResponse> handleException(BusinessException e){
+    public Mono<BusinessExceptionResponse> handleBusinessException(BusinessException e) {
         BusinessExceptionResponse response = new BusinessExceptionResponse(
                 e.getCode(),
                 null,
                 e.getLocalizedMessage()
         );
-
-        return ResponseEntity.ok(response);
+        return Mono.just(response);
     }
 
     @ExceptionHandler(Exception.class)
-    public ProblemDetail handleSecurityException(Exception exception) {
-        ProblemDetail errorDetail = null;
+    public Mono<AtomicReference<ProblemDetail>> handleException(Exception exception, ServerHttpResponse response) {
+        AtomicReference<ProblemDetail> errorDetail = null;
 
-        return switch (exception) {
-            case BadCredentialsException ex -> {
-                errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(401), exception.getMessage());
-                errorDetail.setProperty("description", "The username or password is incorrect");
-                yield errorDetail;
+        return Mono.fromCallable(() -> {
+            switch (exception) {
+                case BadCredentialsException ex -> {
+                    response.setStatusCode(HttpStatus.UNAUTHORIZED);
+                    errorDetail.set(ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, exception.getMessage()));
+                    errorDetail.get().setProperty("description", "The username or password is incorrect");
+                }
+                case AccountStatusException ex -> {
+                    response.setStatusCode(HttpStatus.FORBIDDEN);
+                    errorDetail.set(ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, exception.getMessage()));
+                    errorDetail.get().setProperty("description", "The account is locked");
+                }
+                case AccessDeniedException ex -> {
+                    response.setStatusCode(HttpStatus.FORBIDDEN);
+                    errorDetail.set(ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, exception.getMessage()));
+                    errorDetail.get().setProperty("description", "You are not authorized to access this resource");
+                }
+//                case SignatureException ex, ExpiredJwtException ex -> {
+//                    response.setStatusCode(HttpStatus.FORBIDDEN);
+//                    errorDetail.set(ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, exception.getMessage()));
+//                    errorDetail.get().setProperty("description", "The JWT signature is invalid");
+//                }
+                default -> {
+                    response.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
+                    errorDetail.set(ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage()));
+                    errorDetail.get().setProperty("description", "Unknown internal server error.");
+                }
             }
-            case AccountStatusException ex -> {
-                errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(403), exception.getMessage());
-                errorDetail.setProperty("description", "The account is locked");
-                yield errorDetail;
-            }
-            case AccessDeniedException ex -> {
-                errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(403), exception.getMessage());
-                errorDetail.setProperty("description", "You are not authorized to access this resource");
-                yield errorDetail;
-            }
-            case SignatureException ex -> {
-                errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(403), exception.getMessage());
-                errorDetail.setProperty("description", "The JWT signature is invalid");
-                yield errorDetail;
-            }
-            case ExpiredJwtException ex -> {
-                errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(403), exception.getMessage());
-                errorDetail.setProperty("description", "The JWT signature is invalid");
-                yield errorDetail;
-            }
-            default -> {
-                errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(500), exception.getMessage());
-                errorDetail.setProperty("description", "Unknown internal server error.");
-                yield errorDetail;
-            }
-        };
-
+            return errorDetail;
+        });
     }
 }
