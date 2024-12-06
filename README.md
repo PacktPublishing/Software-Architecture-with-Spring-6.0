@@ -140,15 +140,75 @@ The book provides sample code for each major chapter, allowing readers to experi
    You may update the dependencies with the command ``` expo install <dependency> ```.
     In this case, nothing is better than asking our friend to chat GTP or something else to provide us with the command. ;)
    
+   - ## Chapter 6 : Microservices Architecture
+  
+    - ch6:
+      - docker/
+        - postgresql/
+          - init.sql -> SQL DDL and DML
+        - mongo-init/
+          - init.js -> Create database, collection and insert data.
+        - .env -> PostgreSQL and MongoDB credentials
+        - docker-compose.yml -> Run an image of PostgreSQL and MongoDB, populate them with data, and run all microservices.
+      - docker-resources/
+        - postgresql/
+          - init.sql -> SQL DDL and DML
+        - mongo-init/
+          - init.js -> Create database, collection and insert data.
+        - .env -> PostgreSQL and MongoDB credentials
+        - docker-compose.yml -> Create the databases PostgreSQL and MongoDB and populate them with data. This is useful to run the code in an IDE.
+      - postman
+        - ch6.postman_collection.json -> Postman collection for chapter 6 to request the services.
+      - authentication-services -> Code to authentication services.
+      - user-services -> Code to authentication services.
+      - product-services -> Code to authentication services.
+
+  #### Prerequisites:
+      - Java 21
+      - Docker and Docker Compose
+      - Maven 3.9.9
+
+
+  ## Instructions: 
+  ### To set up environment and run the project (Run the services without code):
+
+    1. Go the docker ch6/docker folder
+    2. Execute the command: ```docker-compose up -d```
+    3. Go to the project's folder: postman and import the collection
+    4. Now, execute the request for the desired service.
+    5. To connect to the PostgreSQL: 
+        - Url user database: jdbc:postgresql://localhost:5432/user_db
+        - Url product database: jdbc:postgresql://localhost:5432/product_db
+        - User: auction_app
+        - Password: auction123
+    6. To connect to the MongoDB: mongodb://auction_app:auction123@localhost:27017/
+    authentication_db?authSource=admin
+        - User: auction_app
+        - Password: auction123
+
+  ### To set up environment and run the project (Run the code via IDE):
+
+    1. Go the docker ch6/docker-resources folder
+    2. Execute the command: ```docker-compose up -d```
+    3. Open the microservices into your favorite IDE 
+    4. For each microservices execute the command: ```mvn clean package``` and then  ```mvn spring-boot:run```    
+    5. Go to the project's folder: postman and import the collection
+    6. Now, execute the request for the desired service.
+    5. To connect to the PostgreSQL: 
+        - Url user database: jdbc:postgresql://localhost:5432/user_db
+        - Url product database: jdbc:postgresql://localhost:5432/product_db
+        - User: auction_app
+        - Password: auction123
+    6. To connect to the MongoDB: mongodb://auction_app:auction123@localhost:27017/
+    authentication_db?authSource=admin
+        - User: auction_app
+        - Password: auction123
 
   ## References
     - https://hub.docker.com/_/postgres
-    - https://nodejs.org/en/download/package-manager
-    - https://expo.dev/go
-    - https://react.dev/
-    - https://reactnative.dev/
-    
+    - https://hub.docker.com/_/mongo
 
+    
 ### Who This Book is For
 
 - Software architects looking to deepen their knowledge of Spring-based architecture.
