@@ -66,7 +66,7 @@ The book provides sample code for each major chapter, allowing readers to experi
     - https://hub.docker.com/_/postgres
     
   
-  - ## Chapter 5 : Client-Server Architecture
+- ## Chapter 5 : Client-Server Architecture
   
     - ch5:
       - docker/
@@ -140,7 +140,7 @@ The book provides sample code for each major chapter, allowing readers to experi
    You may update the dependencies with the command ``` expo install <dependency> ```.
     In this case, nothing is better than asking our friend to chat GTP or something else to provide us with the command. ;)
    
-   - ## Chapter 6 : Microservices Architecture
+- ## Chapter 6 : Microservices Architecture
   
     - ch6:
       - docker/
@@ -186,7 +186,7 @@ The book provides sample code for each major chapter, allowing readers to experi
         - User: auction_app
         - Password: auction123
 
-  ### To set up environment and run the project (Run the code via IDE):
+  ### To set up environment and run the project (Run the services via IDE):
 
     1. Go the docker ch6/docker-resources folder
     2. Execute the command: ```docker-compose up -d```
