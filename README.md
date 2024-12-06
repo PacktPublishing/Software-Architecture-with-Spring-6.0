@@ -205,12 +205,15 @@ The book provides sample code for each major chapter, allowing readers to experi
         - Password: auction123
 
 - ## Chapter 7 : Microservices Patterns with Spring Cloud
-  ### ATTENTION ###
+  ### ALERT ###
   Run the services in the order they appear for each folder. Generally, it is :
    1. configuration-services
    2. service-discovery-services
    3. gateway-services
    4. Other services such as authentication, user, and product services.
+
+   ### ALERT 2 ###
+   Please wait up to 30 seconds after starting the services before making requests. Eureka requires this time to register all services and synchronize its registry due to default heartbeat and cache update intervals. Reducing this delay is possible but expected in the default configuration.
 
    ## Chapter 7 - Folder's structure 
     - ch7:
