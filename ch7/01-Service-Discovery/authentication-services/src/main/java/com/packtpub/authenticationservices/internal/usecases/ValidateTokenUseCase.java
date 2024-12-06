@@ -1,5 +1,6 @@
 package com.packtpub.authenticationservices.internal.usecases;
 
+import com.packtpub.authenticationservices.internal.entities.Authentication;
 import com.packtpub.authenticationservices.internal.repositories.TokenRepository;
 
 public class ValidateTokenUseCase {
@@ -10,7 +11,7 @@ public class ValidateTokenUseCase {
         this.tokenRepository = tokenRepository;
     }
 
-    public boolean execute(String token) {
+    public Authentication execute(String token) {
         return tokenRepository.validate(token);
     }
 }

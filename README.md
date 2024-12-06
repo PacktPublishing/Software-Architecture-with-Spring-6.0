@@ -204,6 +204,82 @@ The book provides sample code for each major chapter, allowing readers to experi
         - User: auction_app
         - Password: auction123
 
+- ## Chapter 7 : Microservices Patterns with Spring Cloud
+  ### ATTENTION ###
+  Run the services in the order they appear for each folder. Generally, it is :
+   1. configuration-services
+   2. service-discovery-services
+   3. gateway-services
+   4. Other services such as authentication, user, and product services.
+
+   ## Chapter 7 - Folder's structure 
+    - ch7:
+      - 01-Service-Discovery/ -> Section's code: Discovering and registering services with Eureka 
+        - docker/
+          - postgresql/
+            - init.sql -> SQL DDL and DML
+          - mongo-init/
+            - init.js -> Create database, collection and insert data.
+          - .env -> PostgreSQL and MongoDB credentials
+          - docker-compose.yml -> Run an image of PostgreSQL and MongoDB, populate them with data, and run all microservices.
+        - service-discovery-services -> Service Discovery Services (Eureka Server)
+        - authentication-services -> Code to authentication services.
+        - user-services -> Code to authentication services.
+        - product-services -> Code to authentication services.
+      - docker-resources/
+        - postgresql/
+          - init.sql -> SQL DDL and DML
+        - mongo-init/
+          - init.js -> Create database, collection and insert data.
+        - .env -> PostgreSQL and MongoDB credentials
+        - docker-compose.yml -> Create the databases PostgreSQL and MongoDB and populate them with data. This is useful to run the code in an IDE.
+      - postman
+        - ch7.postman_collection.json -> Postman collection for chapter 7 to request the services.      
+
+  #### Prerequisites:
+      - Java 21
+      - Docker and Docker Compose
+      - Maven 3.9.9
+
+  ## Instructions: 
+  ### To set up environment and run the project (Run the services without code):
+
+    1. Go the docker ch7/[01-Service-Discovery | 02-Load-Balancer | 03-Gateway | 04-Configuration-Server - 05-Resiliency]/docker folder
+    2. Execute the command: ```docker-compose up -d```
+    3. Go to the project's folder: postman and import the collection
+    4. Now, execute the request for the desired service.
+    5. To connect to the PostgreSQL: 
+        - Url user database: jdbc:postgresql://localhost:5432/user_db
+        - Url product database: jdbc:postgresql://localhost:5432/product_db
+        - User: auction_app
+        - Password: auction123
+    6. To connect to the MongoDB: mongodb://auction_app:auction123@localhost:27017/
+    authentication_db?authSource=admin
+        - User: auction_app
+        - Password: auction123
+
+  ### To set up environment and run the project (Run the services via IDE):
+
+    1. Go the docker ch7/docker-resources folder
+    2. Execute the command: ```docker-compose up -d```
+    3. Open the microservices into your favorite IDE 
+       * RUN THE SERVICES IN THE FOLLOWING ORDER: 
+         * Configuration Services
+         * Discovery Services
+         * Gateway Services
+    4. Go to ch7/[01-Service-Discovery | 02-Load-Balancer | 03-Gateway | 04-Configuration-Server - 05-Resiliency] folder and for each microservices execute the command: ```mvn clean package``` and then  ```mvn spring-boot:run``` 
+    5. Go to the project's folder: postman and import the collection
+    6. Now, execute the request for the desired service.
+    5. To connect to the PostgreSQL: 
+        - Url user database: jdbc:postgresql://localhost:5432/user_db
+        - Url product database: jdbc:postgresql://localhost:5432/product_db
+        - User: auction_app
+        - Password: auction123
+    6. To connect to the MongoDB: mongodb://auction_app:auction123@localhost:27017/
+    authentication_db?authSource=admin
+        - User: auction_app
+        - Password: auction123
+
   ## References
     - https://hub.docker.com/_/postgres
     - https://hub.docker.com/_/mongo
