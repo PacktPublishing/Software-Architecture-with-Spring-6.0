@@ -286,6 +286,7 @@ The book provides sample code for each major chapter, allowing readers to experi
   ## References
     - https://hub.docker.com/_/postgres
     - https://hub.docker.com/_/mongo
+    - https://spring.io/guides/gs/service-registration-and-discovery
 
     
 ### Who This Book is For
