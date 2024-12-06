@@ -1,9 +1,9 @@
 package com.packtpub.userservices.adapter.datasources.authentication;
 
+import com.packtpub.userservices.internal.exceptions.BusinessException;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.web.client.RestClient;
-@Service
 public class AuthenticationRestApi {
 
     private final RestClient restClient;
@@ -15,12 +15,15 @@ public class AuthenticationRestApi {
         this.restClient = restClient;
     }
 
-    public boolean validateToken(String token) {
-        Boolean result = restClient.get()
+    public AuthenticationUser validateToken(String token) {
+        AuthenticationUser authenticationUser = restClient.get()
                 .uri(authenticationServiceUrl + "/v1/api/auth/validate?token={token}", token)
                 .retrieve()
-                .body(Boolean.class);
-        return Boolean.TRUE.equals(result);
+                .onStatus(HttpStatusCode::is5xxServerError, (request, response) -> {
+                    throw new BusinessException(response.getStatusCode().toString(), response.getStatusText());
+                })
+                .body(AuthenticationUser.class);
+        return authenticationUser;
     }
 
 }

@@ -1,7 +1,7 @@
 package com.packtpub.authenticationservices.config.security;
 
-import com.packtpub.authenticationservices.adapter.datasources.AuthenticationJpaDatasource;
-import com.packtpub.authenticationservices.adapter.datasources.AuthenticationEntity;
+import com.packtpub.authenticationservices.adapter.datasources.AuthenticationDocument;
+import com.packtpub.authenticationservices.adapter.datasources.AuthenticationMongoDatasource;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,9 +14,9 @@ import java.util.List;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final AuthenticationJpaDatasource authenticationRepository;
+    private final AuthenticationMongoDatasource authenticationRepository;
 
-    public CustomUserDetailsService(AuthenticationJpaDatasource authenticationRepository) {
+    public CustomUserDetailsService(AuthenticationMongoDatasource authenticationRepository) {
         this.authenticationRepository = authenticationRepository;
     }
 
@@ -24,7 +24,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         List<GrantedAuthority> authorityList = new ArrayList<>();
 
-        AuthenticationEntity authentication = authenticationRepository.findByUsername(username)
+        AuthenticationDocument authentication = authenticationRepository.findByUsername(username)
                 .orElseThrow(() -> new
                         UsernameNotFoundException("User not found with username: " + username));
 

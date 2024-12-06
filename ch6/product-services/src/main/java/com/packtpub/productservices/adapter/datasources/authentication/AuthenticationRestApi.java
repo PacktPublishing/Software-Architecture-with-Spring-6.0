@@ -17,15 +17,15 @@ public class AuthenticationRestApi {
         this.restClient = restClient;
     }
 
-    public boolean validateToken(String token) {
-        Boolean result = restClient.get()
+    public AuthenticationUser validateToken(String token) {
+        AuthenticationUser authenticationUser = restClient.get()
                 .uri(authenticationServiceUrl + "/v1/api/auth/validate?token={token}", token)
                 .retrieve()
                 .onStatus(HttpStatusCode::is5xxServerError, (request, response) -> {
                     throw new BusinessException(response.getStatusCode().toString(), response.getStatusText());
                 })
-                .body(Boolean.class);
-        return Boolean.TRUE.equals(result);
+                .body(AuthenticationUser.class);
+        return authenticationUser;
     }
 
 }

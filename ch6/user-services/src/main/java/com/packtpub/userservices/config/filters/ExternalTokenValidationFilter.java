@@ -1,7 +1,7 @@
 package com.packtpub.userservices.config.filters;
 
 import com.packtpub.userservices.adapter.datasources.authentication.AuthenticationRestApi;
-
+import com.packtpub.userservices.adapter.datasources.authentication.AuthenticationUser;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -10,14 +10,15 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -26,8 +27,6 @@ public class ExternalTokenValidationFilter extends OncePerRequestFilter {
     private final HandlerExceptionResolver handlerExceptionResolver;
     private final AuthenticationRestApi authenticationRestApi;
 
-    private static final String URL_GET_ROLES = "^/v1/users/[^/]+/roles$";
-
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
 
@@ -35,24 +34,20 @@ public class ExternalTokenValidationFilter extends OncePerRequestFilter {
             final String authHeader = request.getHeader("Authorization");
             String token = null;
 
-            Pattern pattern = Pattern.compile(URL_GET_ROLES);
-            Matcher matcher = pattern.matcher(request.getRequestURI());
-            boolean isGetRoles = matcher.matches();
-
-            if (!isGetRoles) {
-                if (authHeader != null && authHeader.startsWith("Bearer ")) {
-                    token = authHeader.substring(7);
-                } else {
-                    throw new ExpiredJwtException(null, null, authHeader);
-                }
+            if (authHeader != null && authHeader.startsWith("Bearer ")) {
+                token = authHeader.substring(7);
             }
 
             if (token != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                boolean isValid = authenticationRestApi.validateToken(authHeader);
+                AuthenticationUser authenticationUser = authenticationRestApi.validateToken(authHeader);
 
-                if (isValid) {
-                    SecurityContextHolder.getContext().setAuthentication(
-                            new UsernamePasswordAuthenticationToken(null, null, null));
+                if (authenticationUser != null) {
+
+                    List<SimpleGrantedAuthority> authorities = authenticationUser.getRoles().stream()
+                            .map(SimpleGrantedAuthority::new)
+                            .collect(Collectors.toList());
+
+                    SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(authenticationUser.getRoles(), null, authorities));
                 } else {
                     throw new ExpiredJwtException(null, null, authHeader);
                 }
