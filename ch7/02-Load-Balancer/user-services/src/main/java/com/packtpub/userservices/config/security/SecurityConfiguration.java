@@ -17,8 +17,6 @@ import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
 public class SecurityConfiguration {
 
@@ -32,7 +30,7 @@ public class SecurityConfiguration {
                 .cors(cors -> corsFilter())
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/v1/users/{username}/roles", "/swagger-ui/**", "/v3/api-docs/**", "/actuator/**").permitAll()
-//                        .requestMatchers("/actuator/**").hasRole("ADMIN")
+                        .requestMatchers("/actuator/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session

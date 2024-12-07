@@ -1,21 +1,14 @@
-version: "3.8"
 services:
-  service-discovery-services:
-    build: ../service-discovery-services
-    ports:
-      - "8761:8761"
   authentication-services:
     build: ../authentication-services
     ports:
       - "8080:8080"
     environment:
       SPRING_DATA_MONGODB_URI: mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongo:27017/authentication_db?authSource=admin
-      DATABASE_URL: jdbc:postgresql://postgresql:5432/authentication_db
       EUREKA_URI: http://service-discovery-services:8761/eureka
     depends_on:
        - mongo
-      #- postgresql
-      # - user-services
+       - service-discovery-services
   user-services:
     build: ../user-services
     ports:
@@ -25,6 +18,7 @@ services:
       EUREKA_URI: http://service-discovery-services:8761/eureka
     depends_on:
       - postgresql
+      - service-discovery-services
       - authentication-services
   product-services:
     build: ../product-services
@@ -35,9 +29,14 @@ services:
       EUREKA_URI: http://service-discovery-services:8761/eureka
     depends_on:
       - postgresql
-      - user-services
+      - service-discovery-services
+      - authentication-services
+  service-discovery-services:
+    build: ../service-discovery-services
+    ports:
+      - "8761:8761"
   postgresql:
-    image: postgres
+    image: postgres:latest
     container_name: postgres_db
     restart: always
     environment:

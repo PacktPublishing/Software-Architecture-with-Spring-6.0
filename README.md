@@ -270,7 +270,8 @@ The book provides sample code for each major chapter, allowing readers to experi
          * Configuration Services
          * Discovery Services
          * Gateway Services
-    4. Go to ch7/[01-Service-Discovery | 02-Load-Balancer | 03-Gateway | 04-Configuration-Server - 05-Resiliency] folder and for each microservices execute the command: ```mvn clean package``` and then  ```mvn spring-boot:run``` 
+    4. Go to ch7/[01-Service-Discovery | 02-Load-Balancer | 03-Gateway | 04-Configuration-Server - 05-Resiliency] folder and for each microservices execute the command: ```mvn clean package``` and then  ```mvn spring-boot:run```
+         * To run more than one service instance, use the command: ``` mvn spring-boot:run -Dspring-boot.run.arguments="--server.port=<port_number>"  ``` 
     5. Go to the project's folder: postman and import the collection
     6. Now, execute the request for the desired service.
     5. To connect to the PostgreSQL: 

@@ -2,8 +2,6 @@ package com.packtpub.authenticationservices.adapter.datasources;
 
 import com.packtpub.authenticationservices.adapter.transportlayers.restapi.dto.response.RoleResponse;
 import com.packtpub.authenticationservices.internal.repositories.UserRepository;
-import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
