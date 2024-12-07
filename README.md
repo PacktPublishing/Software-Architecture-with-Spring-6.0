@@ -217,7 +217,48 @@ The book provides sample code for each major chapter, allowing readers to experi
 
    ## Chapter 7 - Folder's structure 
     - ch7:
-      - ## 01-Service-Discovery  
+      - ## 01-Service-Discovery - Discovering and registering services with Eureka
+        - 01-Service-Discovery/
+          - docker/
+            - postgresql/
+              - init.sql -> SQL DDL and DML
+            - mongo-init/
+              - init.js -> Create database, collection and insert data.
+            - .env -> PostgreSQL and MongoDB credentials
+            - docker-compose.yml -> Run an image of PostgreSQL and MongoDB, populate them with data, and run all microservices.
+          - service-discovery-services -> Service discovery (Eureka Server) code.
+          - authentication-services -> Authentication services code.
+          - user-services -> User services code.
+          - product-services -> Product services code.
+        - docker-resources/
+          - postgresql/
+            - init.sql -> SQL DDL and DML
+          - mongo-init/
+            - init.js -> Create database, collection and insert data.
+          - .env -> PostgreSQL and MongoDB credentials
+          - docker-compose.yml -> Create the databases PostgreSQL and MongoDB and populate them with data. This is useful to run the code in an IDE.
+      - ## 02-Load-Balancer - Balancing the load with Spring Cloud LoadBalancer
+        - 02-Load-Balancer  
+          - docker/
+            - postgresql/
+              - init.sql -> SQL DDL and DML
+            - mongo-init/
+              - init.js -> Create database, collection and insert data.
+            - .env -> PostgreSQL and MongoDB credentials
+            - docker-compose.yml -> Run an image of PostgreSQL and MongoDB, populate them with data, and run all microservices.
+          - service-discovery-services -> Service discovery (Eureka Server) code.
+          - authentication-services -> Authentication services code.
+          - user-services -> User services code.
+          - product-services -> Product services code.
+        - docker-resources/
+          - postgresql/
+            - init.sql -> SQL DDL and DML
+          - mongo-init/
+            - init.js -> Create database, collection and insert data.
+          - .env -> PostgreSQL and MongoDB credentials
+          - docker-compose.yml -> Create the databases PostgreSQL and MongoDB and populate them with data. This is useful to run the code in an IDE.
+      - ## 03-Gateway - Routing with Spring Cloud Gateway
+        - 03-Gateway/ 
         - docker/
           - postgresql/
             - init.sql -> SQL DDL and DML
@@ -225,29 +266,11 @@ The book provides sample code for each major chapter, allowing readers to experi
             - init.js -> Create database, collection and insert data.
           - .env -> PostgreSQL and MongoDB credentials
           - docker-compose.yml -> Run an image of PostgreSQL and MongoDB, populate them with data, and run all microservices.
-        - service-discovery-services -> Service Discovery Services (Eureka Server)
-        - authentication-services -> Code to authentication services.
-        - user-services -> Code to authentication services.
-        - product-services -> Code to authentication services.
-      - docker-resources/
-        - postgresql/
-          - init.sql -> SQL DDL and DML
-        - mongo-init/
-          - init.js -> Create database, collection and insert data.
-        - .env -> PostgreSQL and MongoDB credentials
-        - docker-compose.yml -> Create the databases PostgreSQL and MongoDB and populate them with data. This is useful to run the code in an IDE.
-      - ## 02-Load-Balancer 
-        - docker/
-          - postgresql/
-            - init.sql -> SQL DDL and DML
-          - mongo-init/
-            - init.js -> Create database, collection and insert data.
-          - .env -> PostgreSQL and MongoDB credentials
-          - docker-compose.yml -> Run an image of PostgreSQL and MongoDB, populate them with data, and run all microservices.
-        - service-discovery-services -> Service Discovery Services (Eureka Server)
-        - authentication-services -> Code to authentication services.
-        - user-services -> Code to authentication services.
-        - product-services -> Code to authentication services.
+        - service-discovery-services -> Service discovery (Eureka Server) code.
+        - gateway-services -> Gateway services code.
+        - authentication-services -> Authentication services code.
+        - user-services -> User services code.
+        - product-services -> Product services code.
       - docker-resources/
         - postgresql/
           - init.sql -> SQL DDL and DML

@@ -1,6 +1,7 @@
 package com.packtpub.userservices.config.filters;
 
 import com.packtpub.userservices.adapter.datasources.authentication.AuthenticationRestApi;
+import com.packtpub.userservices.adapter.datasources.authentication.AuthenticationUser;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -8,19 +9,20 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-@Slf4j
 public class ExternalTokenValidationFilter extends OncePerRequestFilter {
 
     private final HandlerExceptionResolver handlerExceptionResolver;
@@ -49,10 +51,6 @@ public class ExternalTokenValidationFilter extends OncePerRequestFilter {
 
         try {
             final String authHeader = request.getHeader("Authorization");
-            final String correlationId = request.getHeader("x-correlation-id");
-
-            log.info("x-correlation-id", correlationId);
-
             String token = null;
 
             if (!isInWhiteList(request.getRequestURI())) {
@@ -64,11 +62,16 @@ public class ExternalTokenValidationFilter extends OncePerRequestFilter {
             }
 
             if (token != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                boolean isValid = authenticationRestApi.validateToken(authHeader);
+                AuthenticationUser authenticationUser = authenticationRestApi.validateToken(authHeader);
 
-                if (isValid) {
-                    SecurityContextHolder.getContext().setAuthentication(
-                            new UsernamePasswordAuthenticationToken(null, null, null));
+                if (authenticationUser != null) {
+
+                    List<SimpleGrantedAuthority> authorities = authenticationUser.getRoles().stream()
+                            .map(SimpleGrantedAuthority::new)
+                            .collect(Collectors.toList());
+
+                    SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(authenticationUser.getRoles(), null, authorities));
+
                 } else {
                     throw new ExpiredJwtException(null, null, authHeader);
                 }

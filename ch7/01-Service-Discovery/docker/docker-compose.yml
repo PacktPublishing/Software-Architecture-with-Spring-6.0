@@ -1,4 +1,8 @@
 services:
+  service-discovery-services:
+    build: ../service-discovery-services
+    ports:
+      - "8761:8761"
   authentication-services:
     build: ../authentication-services
     ports:
@@ -19,7 +23,6 @@ services:
     depends_on:
       - postgresql
       - service-discovery-services
-      - authentication-services
   product-services:
     build: ../product-services
     ports:
@@ -30,13 +33,8 @@ services:
     depends_on:
       - postgresql
       - service-discovery-services
-      - authentication-services
-  service-discovery-services:
-    build: ../service-discovery-services
-    ports:
-      - "8761:8761"
   postgresql:
-    image: postgres
+    image: postgres:latest
     container_name: postgres_db
     restart: always
     environment:
