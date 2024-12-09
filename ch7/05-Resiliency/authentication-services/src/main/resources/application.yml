@@ -5,8 +5,7 @@ resilience4j.circuitbreaker:
       wait-duration-in-open-state: 10s
       failure-rate-threshold: 10
       slow-call-rate-threshold: 10
-      slow-call-duration-threshold:
-        seconds: 1
+      slow-call-duration-threshold: 1s
       minimum-number-of-calls: 5
       automatic-transition-from-open-to-half-open-enabled: true
 

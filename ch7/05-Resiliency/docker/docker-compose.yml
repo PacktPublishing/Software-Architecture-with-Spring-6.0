@@ -1,21 +1,39 @@
-version: "3.8"
 services:
   service-discovery-services:
     build: ../service-discovery-services
     ports:
       - "8761:8761"
+  configuration-services:
+    build: ../configuration-services
+    ports:
+      - "8888:8888"
+    environment:
+      EUREKA_URI: http://service-discovery-services:8761/eureka
+    depends_on:
+      - service-discovery-services
+  gateway-services:
+    build: ../gateway-services
+    ports:
+      - "8072:8072"
+    environment:
+      EUREKA_URI: http://service-discovery-services:8761/eureka
+      CONFIG_SERVER_URI: http://configuration-services:8888
+    depends_on:
+      - service-discovery-services
+      - configuration-services
   authentication-services:
     build: ../authentication-services
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATA_MONGODB_URI: mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongo:27017/authentication_db?authSource=admin
-      DATABASE_URL: jdbc:postgresql://postgresql:5432/authentication_db
+      MONGODB_URL: mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongo:27017/authentication_db?authSource=admin
       EUREKA_URI: http://service-discovery-services:8761/eureka
+      CONFIG_SERVER_URI: http://configuration-services:8888
     depends_on:
        - mongo
-      #- postgresql
-      # - user-services
+       - service-discovery-services
+       - configuration-services
+       - gateway-services
   user-services:
     build: ../user-services
     ports:
@@ -23,9 +41,12 @@ services:
     environment:
       DATABASE_URL: jdbc:postgresql://postgresql:5432/user_db
       EUREKA_URI: http://service-discovery-services:8761/eureka
+      CONFIG_SERVER_URI: http://configuration-services:8888
     depends_on:
       - postgresql
-      - authentication-services
+      - service-discovery-services
+      - configuration-services
+      - gateway-services
   product-services:
     build: ../product-services
     ports:
@@ -33,11 +54,14 @@ services:
     environment:
       DATABASE_URL: jdbc:postgresql://postgresql:5432/product_db
       EUREKA_URI: http://service-discovery-services:8761/eureka
+      CONFIG_SERVER_URI: http://configuration-services:8888
     depends_on:
       - postgresql
-      - user-services
+      - service-discovery-services
+      - configuration-services  
+      - gateway-services
   postgresql:
-    image: postgres
+    image: postgres:latest
     container_name: postgres_db
     restart: always
     environment:
@@ -62,5 +86,5 @@ services:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
 volumes:
-  postgres-data:
+  # postgres-data:
   mongo-data:

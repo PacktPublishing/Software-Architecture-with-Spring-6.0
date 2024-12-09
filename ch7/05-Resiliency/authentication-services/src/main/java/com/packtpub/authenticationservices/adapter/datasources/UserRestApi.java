@@ -1,5 +1,6 @@
 package com.packtpub.authenticationservices.adapter.datasources;
 
+import com.packtpub.authenticationservices.config.correlation.CorrelationIdUtil;
 import com.packtpub.authenticationservices.adapter.transportlayers.restapi.dto.response.RoleResponse;
 import com.packtpub.authenticationservices.config.correlation.CorrelationIdUtil;
 import com.packtpub.authenticationservices.internal.repositories.UserRepository;

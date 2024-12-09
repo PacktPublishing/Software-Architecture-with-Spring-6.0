@@ -44,11 +44,10 @@ public class UserController {
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @GetMapping
-    //@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<UserResponse>> getUsers() {
         List<User> users = getUsersUseCase.execute();
         List<UserResponse> userResponses = users.stream().map(n -> new UserResponse(n.getId(), n.getName(), n.getEmail(), n.getPhoneNumber(), n.getCity(), n.getState(), n.getCountry(), n.getRoles())).collect(Collectors.toList());
-        return !users.isEmpty() ? new ResponseEntity<>(userResponses, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return ! users.isEmpty() ? new ResponseEntity<>(userResponses, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping(value = "/{username}/roles")

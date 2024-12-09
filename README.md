@@ -289,6 +289,22 @@ The book provides sample code for each major chapter, allowing readers to experi
             - init.js -> Create database, collection and insert data.
           - .env -> PostgreSQL and MongoDB credentials
           - docker-compose.yml -> Run an image of PostgreSQL and MongoDB, populate them with data, and run all microservices.
+        - online-auction-configuration -> Applications properties saved on GitHub
+        - service-discovery-services -> Service discovery (Eureka Server) code.
+        - configuration-services -> Configuration service's code.
+        - gateway-services -> Gateway services code.
+        - authentication-services -> Authentication services code.
+        - user-services -> User services code.
+        - product-services -> Product services code.   
+      - ## 05-Resiliency - Applying resilience with Resilience4J 
+        - 04-Configuration-Server/ 
+        - docker/
+          - postgresql/
+            - init.sql -> SQL DDL and DML
+          - mongo-init/
+            - init.js -> Create database, collection and insert data.
+          - .env -> PostgreSQL and MongoDB credentials
+          - docker-compose.yml -> Run an image of PostgreSQL and MongoDB, populate them with data, and run all microservices.
         - service-discovery-services -> Service discovery (Eureka Server) code.
         - configuration-services -> Configuration service's code.
         - gateway-services -> Gateway services code.
@@ -303,7 +319,16 @@ The book provides sample code for each major chapter, allowing readers to experi
         - .env -> PostgreSQL and MongoDB credentials
         - docker-compose.yml -> Create the databases PostgreSQL and MongoDB and populate them with data. This is useful to run the code in an IDE.
       - postman
-        - ch7.postman_collection.json -> Postman collection for chapter 7 to request the services.         
+        - ch7.postman_collection.json -> Postman collection for chapter 7 to request the services.
+      - docker-resources/
+        - postgresql/
+          - init.sql -> SQL DDL and DML
+        - mongo-init/
+          - init.js -> Create database, collection and insert data.
+        - .env -> PostgreSQL and MongoDB credentials
+        - docker-compose.yml -> Create the databases PostgreSQL and MongoDB and populate them with data. This is useful to run the code in an IDE.
+      - postman
+        - ch7.postman_collection.json -> Postman collection for chapter 7 to request the services.      
 
   #### Prerequisites:
       - Java 21
