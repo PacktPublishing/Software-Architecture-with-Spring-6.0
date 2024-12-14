@@ -21,7 +21,6 @@ public class AuctionFieldSetMapper implements FieldSetMapper<AuctionDto> {
                 .minbid(fieldSet.readBigDecimal("minbid"))
                 .productid(fieldSet.readLong("productid"))
                 .isActive(fieldSet.readBoolean("active"))
-//                .createdAt(LocalDateTime.parse(fieldSet.readString("createdat"), DATE_TIME_FORMATTER))
                 .createdAt(parseDate(fieldSet.readString("createdat")))
                 .build();
         return auctionDto;

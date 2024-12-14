@@ -1,0 +1,83 @@
+{
+	"info": {
+		"_postman_id": "bec0c1f6-bd94-4b23-ab77-706d69a4879c",
+		"name": "ch9",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4179687",
+		"_collection_link": "https://gold-zodiac-469756.postman.co/workspace/SAWS6~dfe77395-c905-4e2b-93e1-a9acce6c5cc6/collection/4179687-bec0c1f6-bd94-4b23-ab77-706d69a4879c?action=share&source=collection_link&creator=4179687"
+	},
+	"item": [
+		{
+			"name": "Consumer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"text\": \"The ETL process is completed! (Consumer)\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/alertSlackChannelConsumer",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"alertSlackChannelConsumer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Supplier",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/alertSlackChannelSupplier",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"alertSlackChannelSupplier"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Function",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"text\": \"The ETL process is completed! (Function - Local)\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/alertSlackChannelFunction",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"alertSlackChannelFunction"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

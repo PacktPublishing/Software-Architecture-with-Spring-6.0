@@ -44,6 +44,7 @@ public class EtlBatchProcessApplication {
 
     @Scheduled(fixedRate = 60000)
     public void importFiles() throws Exception {
+        try {
 
         JobParameters jobParameters = new JobParametersBuilder()
                 .addDate("timestamp", Calendar.getInstance().getTime())
@@ -57,5 +58,13 @@ public class EtlBatchProcessApplication {
         while (jobExecution.isRunning()) {
             log.info("Processing job execution...");
         }
+        if (jobExecution.getStatus().isUnsuccessful()) {
+            log.error("Job execution failed with exceptions: {}", jobExecution.getAllFailureExceptions());
+        } else {
+            log.info("Job execution completed successfully.");
+        }
+    } catch (Exception e) {
+        log.error("Error occurred during job execution", e);
     }
+        }
 }

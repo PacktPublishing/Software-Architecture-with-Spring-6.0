@@ -29,11 +29,8 @@ public class BidItemReader extends FlatFileItemReader<BidDto> {
         lineTokenizer.setNames("_id", "_class", "amount", "auctionId", "createdAt", "userId");
         lineTokenizer.setStrict(false);
         defaultLineMapper.setLineTokenizer(lineTokenizer);
-        defaultLineMapper.setFieldSetMapper(bidsFieldSetMapper());
+        defaultLineMapper.setFieldSetMapper(new BidsFieldSetMapper());
         return defaultLineMapper;
     }
 
-    private FieldSetMapper<BidDto> bidsFieldSetMapper() {
-        return new BidsFieldSetMapper();
-    }
 }

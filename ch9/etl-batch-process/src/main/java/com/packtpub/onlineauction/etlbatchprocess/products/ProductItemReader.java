@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 public class ProductItemReader extends FlatFileItemReader<ProductDto> {
 
     public ProductItemReader(@Value("#{jobParameters['productsFile']}") String productsFile) {
-        this.setName("BID_READER");
+        this.setName("PRODUCT_READER");
         this.setLinesToSkip(1);
         this.setLineMapper(lineMapper());
         this.setStrict(false);
@@ -30,11 +30,8 @@ public class ProductItemReader extends FlatFileItemReader<ProductDto> {
         lineTokenizer.setNames("id","description","name","photo","user_id");
         lineTokenizer.setStrict(false);
         defaultLineMapper.setLineTokenizer(lineTokenizer);
-        defaultLineMapper.setFieldSetMapper(bidsFieldSetMapper());
+        defaultLineMapper.setFieldSetMapper(new ProductFieldSetMapper());
         return defaultLineMapper;
     }
 
-    private FieldSetMapper<ProductDto> bidsFieldSetMapper() {
-        return new ProductFieldSetMapper();
-    }
 }

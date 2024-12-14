@@ -380,6 +380,48 @@ The book provides sample code for each major chapter, allowing readers to experi
     - https://hub.docker.com/_/mongo
     - https://spring.io/guides/gs/service-registration-and-discovery
 
+- ## Chapter 9 : Pipe and Filter and Serverless Architecture
+  
+    - ch9:
+      - docker-resources/
+        - postgresql/
+          - init.sql -> SQL DDL and DML
+        - .env -> PostgreSQL credentials
+        - docker-compose.yml -> Run an image of PostgreSQL and populate it. Run Kafka.
+      - postman
+        - ch9.postman_collection.json -> Postman collection for chapter 9 to request the services.
+      - data-files/ -> CSV files that are to be processed and their data inserted into the database.
+        - Users.csv  -> User's CSV file that contains data from user's database.
+        - Products.csv -> Product's CSV file that contains data from product's database.
+        - Bids.csv -> Bid's CSV file that contains data from bid's database.
+        - Auctions.csv -> Auction's CSV file that contains data from auction's database.
+      - etl-batch-process/ -> Code to process the data files and save them to database. (Pipe and Filter architecture code)
+      - alerting-faas -> Code to send alerts to Slack channel (group) informing when the batch process is completed.  (Serverless architecture)
+
+  #### Prerequisites:
+      - Java 21
+      - Docker and Docker Compose
+      - Maven 3.9.9
+
+  ## Instructions: 
+    ### To set up environment and run the project (Run the services via IDE):
+    ## Piper and Filter Architecture
+    1. Go the docker ch6/docker-resources folder
+    2. Execute the command: ```docker-compose up -d```
+    3. Open the etl-batch-process application into your favorite IDE 
+    4. For each microservices execute the command: ```mvn clean package``` and then  ```mvn spring-boot:run```    
+    6. Now, execute the request for the desired service.
+    5. To check the data inserted into tables, connect to the PostgreSQL: 
+        - Url: jdbc:postgresql://localhost:5432/report_db
+        - User: auction_app
+        - Password: auction123
+        
+    ## Serverless Architecture
+    1. Open the alerting-faas application into your favorite IDE 
+    2. Execute the command: ```mvn clean package``` and then  ```mvn spring-boot:run```    
+    3. Go to the project's folder: postman and import the collection
+    4. Now, execute the request for the desired service.
+
     
 ### Who This Book is For
 

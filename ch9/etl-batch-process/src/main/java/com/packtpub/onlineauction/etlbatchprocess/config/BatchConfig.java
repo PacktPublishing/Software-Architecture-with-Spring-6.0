@@ -58,7 +58,6 @@ public class BatchConfig {
                 .next(importBidsStep(jobRepository, transactionManager))
                 .next(importProductsStep(jobRepository, transactionManager))
                 .next(importAuctionsStep(jobRepository, transactionManager))
-                .next(renameFilesStep(jobRepository, transactionManager, List.of("bidsFile", "usersFile", "productsFile", "auctionsFile")))
                 .build();
     }
 
@@ -99,38 +98,6 @@ public class BatchConfig {
                 .reader(auctionItemReader)
                 .processor(auctionItemProcessor)
                 .writer(auctionItemWriter)
-                .build();
-    }
-
-    @Bean
-    public Step renameFilesStep(JobRepository jobRepository, PlatformTransactionManager transactionManager, List<String> filePaths) {
-        return new StepBuilder("renameFilesStep", jobRepository)
-                .tasklet((StepContribution contribution, ChunkContext chunkContext) -> {
-
-                    filePaths.stream().forEach(n -> {
-
-                        String inputFilePath = (String) chunkContext.getStepContext()
-                                .getJobParameters()
-                                .get(n);
-
-                        File file = new File(inputFilePath);
-                        if (file.exists()) {
-                            String newFileName = file.getAbsolutePath().replace(".csv", "_processed.csv");
-                            Path sourcePath = file.toPath();
-                            Path targetPath = new File(newFileName).toPath();
-
-                            try {
-//                                Files.move(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
-                                System.out.println("File renamed to: " + newFileName);
-                            } catch (Exception e) {
-                                throw new RuntimeException("Failed to rename file", e);
-                            }
-                        } else {
-                            System.out.println("File not found: " + inputFilePath);
-                        }
-                    });
-                    return RepeatStatus.FINISHED;
-                }, transactionManager)
                 .build();
     }
 

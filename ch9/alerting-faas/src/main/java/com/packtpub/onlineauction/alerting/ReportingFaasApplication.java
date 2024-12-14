@@ -16,24 +16,4 @@ public class ReportingFaasApplication {
 		SpringApplication.run(ReportingFaasApplication.class, args);
 	}
 
-
-	@Bean
-	Function<String, String> uppercase(){
-		return s -> s.toUpperCase();
-	}
-
-	@Bean
-	Function<Person, PersonDto> getPersonAge(){
-		return s -> {
-			Integer age = Period.between(s.getBirthDate(), LocalDate.now()).getYears();
-			return new PersonDto(s.getName(), s.getBirthDate(), age);
-		};
-	}
-
-	Supplier<Person> getPerson(){
-
-		return Person::new;
-	}
-
-
 }

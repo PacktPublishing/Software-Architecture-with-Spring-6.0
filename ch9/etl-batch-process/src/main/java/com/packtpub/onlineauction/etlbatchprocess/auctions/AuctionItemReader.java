@@ -1,5 +1,6 @@
 package com.packtpub.onlineauction.etlbatchprocess.auctions;
 
+import com.packtpub.onlineauction.etlbatchprocess.users.UserDto;
 import lombok.val;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.file.FlatFileItemReader;
@@ -30,11 +31,8 @@ public class AuctionItemReader extends FlatFileItemReader<AuctionDto> {
         lineTokenizer.setNames("_id","_class","createdat","active","description","maxbid","minbid","productid");
         lineTokenizer.setStrict(false);
         defaultLineMapper.setLineTokenizer(lineTokenizer);
-        defaultLineMapper.setFieldSetMapper(auctionsFieldSetMapper());
+        defaultLineMapper.setFieldSetMapper(new AuctionFieldSetMapper());
         return defaultLineMapper;
     }
 
-    private FieldSetMapper<AuctionDto> auctionsFieldSetMapper() {
-        return new AuctionFieldSetMapper();
-    }
 }
