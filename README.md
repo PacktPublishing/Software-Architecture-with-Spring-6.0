@@ -406,7 +406,7 @@ The book provides sample code for each major chapter, allowing readers to experi
   ## Instructions: 
     ### To set up environment and run the project (Run the services via IDE):
     ## Piper and Filter Architecture
-    1. Go the docker ch6/docker-resources folder
+    1. Go the docker ch9/docker-resources folder
     2. Execute the command: ```docker-compose up -d```
     3. Open the etl-batch-process application into your favorite IDE 
     4. For each microservices execute the command: ```mvn clean package``` and then  ```mvn spring-boot:run```    
@@ -415,7 +415,7 @@ The book provides sample code for each major chapter, allowing readers to experi
         - Url: jdbc:postgresql://localhost:5432/report_db
         - User: auction_app
         - Password: auction123
-        
+
     ## Serverless Architecture
     1. Open the alerting-faas application into your favorite IDE 
     2. Execute the command: ```mvn clean package``` and then  ```mvn spring-boot:run```    
