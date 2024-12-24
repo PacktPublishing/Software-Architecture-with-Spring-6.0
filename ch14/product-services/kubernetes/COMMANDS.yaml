@@ -9,9 +9,6 @@ docker inspect wxesquevixos/product-services:latest
 
 
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.11.3/deploy/static/provider/cloud/deploy.yaml
-
-
-
 kubectl get pods -n ingress-nginx  -l app.kubernetes.io/name=ingress-nginx
 kubectl get ingressclass
   

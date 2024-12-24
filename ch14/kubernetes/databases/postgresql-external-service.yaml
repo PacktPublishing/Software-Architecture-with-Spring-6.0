@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgresql-service  # The service name used inside Kubernetes
+spec:
+  type: ExternalName
+  externalName: 192.168.100.89  # Replace with your local IP, e.g., 192.168.1.10
+  ports:
+    - port: 5432
+      targetPort: 5432
