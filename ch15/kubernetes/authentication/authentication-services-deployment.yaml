@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: authentication-services
+  labels:
+    app: authentication-services
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: authentication-services
+  template:
+    metadata:
+      labels:
+        app: authentication-services
+    spec:
+      containers:
+        - name: authentication-services
+          image: wxesquevixos/authentication-services:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: MONGODB_URL
+              value: "mongodb://auction_app:auction123@192.168.100.89:27017/authentication_db?authSource=admin"
+            - name: USER-SERVICES
+              value: "http://user-services.default.svc.cluster.local"
+#
+#          readinessProbe:
+#            httpGet:
+#              path: /actuator/health
+#              port: 8080
+#            initialDelaySeconds: 30  # Allow time for startup
+#            periodSeconds: 10
+#
+#          livenessProbe:
+#            httpGet:
+#              path: /actuator/health
+#              port: 8080
+#            initialDelaySeconds: 30  # Allow time for startup
+#            periodSeconds: 10

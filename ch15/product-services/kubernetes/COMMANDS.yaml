@@ -1,0 +1,61 @@
+docker build --platform linux/amd64 -t wxesquevixos/product-services:latest .
+
+docker run -p 8080:8080 wxesquevixos/product-services:latest
+
+docker push wxesquevixos/product-services:latest
+
+docker inspect wxesquevixos/product-services:latest
+
+
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.11.3/deploy/static/provider/cloud/deploy.yaml
+kubectl get pods -n ingress-nginx  -l app.kubernetes.io/name=ingress-nginx
+kubectl get ingressclass
+  
+kubectl describe ingressclass nginx
+
+  
+  ifconfig | grep "inet " | grep -v 127.0.0.1 | awk '{print $2}'
+
+
+minikube tunnel
+  
+  
+  kubectl describe ing mcu-all
+
+---
+
+1 - REMOVER DO PROJETO
+
+<dependency>
+<groupId>org.springframework.cloud</groupId>
+<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+</dependency>
+
+<dependency>
+<groupId>org.springframework.cloud</groupId>
+<artifactId>spring-cloud-starter-loadbalancer</artifactId>
+</dependency>
+
+<!-- Condiguration Client Config -->
+<dependency>
+<groupId>org.springframework.cloud</groupId>
+<artifactId>spring-cloud-starter-config</artifactId>
+</dependency>
+
+
+2 - Refatorar AuthenticationRestApi (Products and users)
+
+
+3 - BeansConfiguration
+
+
+-- DOCKER
+
+1 - docker build --platform linux/amd64 -t wxesquevixos/user-services:latest .
+2 - docker run -p 8080:8080 wxesquevixos/user-services:latest
+3 - docker push wxesquevixos/user-services:latest
+
+1 - docker build --platform linux/amd64 -t wxesquevixos/authentication-services:latest .
+2 - docker run -p 8080:8080 wxesquevixos/authentication-services:latest
+3 - docker push wxesquevixos/authentication-services:latest

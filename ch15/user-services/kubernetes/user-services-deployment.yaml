@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-services
+  labels:
+    app: user-services
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-services
+  template:
+    metadata:
+      labels:
+        app: user-services
+    spec:
+      containers:
+        - name: user-services
+          image: wxesquevixos/user-services:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DATABASE_URL
+              value: "jdbc:postgresql://192.168.100.89:5432/user_db"
+            - name: AUTHENTICATION-SERVICES
+              value: "http://authentication-services.default.svc.cluster.local"
+
+#
+#          readinessProbe:
+#            httpGet:
+#              path: /actuator/health
+#              port: 8080
+#            initialDelaySeconds: 30  # Allow time for startup
+#            periodSeconds: 10
+#
+#          livenessProbe:
+#            httpGet:
+#              path: /actuator/health
+#              port: 8080
+#            initialDelaySeconds: 30  # Allow time for startup
+#            periodSeconds: 10

@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    user: root
+    ports:
+      - "8080:8080"
+      - "50000:50000" # Port for Jenkins agent communication
+    volumes:
+      - jenkins_home:/var/jenkins_home # Persistent Jenkins data
+      - /var/run/docker.sock:/var/run/docker.sock # Access Docker on the host
+      - ./jenkins-docker-certs:/certs/client:ro # Docker TLS if needed
+    environment:
+      JAVA_OPTS: "-Djenkins.install.runSetupWizard=false"
+    networks:
+      - jenkins_network
+
+networks:
+  jenkins_network:
+    driver: bridge
+
+volumes:
+  jenkins_home:
