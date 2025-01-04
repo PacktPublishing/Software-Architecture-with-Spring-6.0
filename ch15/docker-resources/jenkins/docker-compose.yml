@@ -1,19 +1,23 @@
-version: '3.8'
-
 services:
   jenkins:
-    image: jenkins/jenkins:lts
+    image: jenkins/jenkins:jdk21
     container_name: jenkins
     user: root
     ports:
-      - "8080:8080"
-      - "50000:50000" # Port for Jenkins agent communication
+      - "8080:8080"         # Jenkins web UI
+      - "50000:50000"       # Jenkins agent communication
     volumes:
-      - jenkins_home:/var/jenkins_home # Persistent Jenkins data
-      - /var/run/docker.sock:/var/run/docker.sock # Access Docker on the host
-      - ./jenkins-docker-certs:/certs/client:ro # Docker TLS if needed
+      - jenkins_home:/var/jenkins_home                 # Persistent Jenkins data
+      - /var/run/docker.sock:/var/run/docker.sock      # Access Docker on the host
+      #- ~/.kube/config:/root/.kube/config:ro           # Mount kubeconfig
+      - ~/.kube/config:/root/.kube/config:rw   # Ensure read-write access
+      - ~/.minikube:/root/.minikube:ro                 # Mount Minikube certificates
+      #- ~/.minikube:/root/.minikube:ro         # Minikube certs can remain read-only
     environment:
       JAVA_OPTS: "-Djenkins.install.runSetupWizard=false"
+    build:
+      context: .
+      dockerfile: Dockerfile
     networks:
       - jenkins_network
 
@@ -23,3 +27,31 @@ networks:
 
 volumes:
   jenkins_home:
+# version: '3.8'
+
+# services:
+#   jenkins:
+#     image: jenkins/jenkins:jdk21
+#     container_name: jenkins
+#     user: root
+#     ports:
+#       - "8080:8080"
+#       - "50000:50000" # Port for Jenkins agent communication
+#     volumes:
+#       - jenkins_home:/var/jenkins_home # Persistent Jenkins data
+#       - /var/run/docker.sock:/var/run/docker.sock # Access Docker on the host
+#       - ./jenkins-docker-certs:/certs/client:ro # Docker TLS if needed
+#       - ~/.kube/config:/root/.kube/config # Mount Minikube kubeconfig
+#       - ~/.minikube:/root/.minikube:ro        # Mount Minikube certificates
+
+#     environment:
+#       JAVA_OPTS: "-Djenkins.install.runSetupWizard=false"
+#     networks:
+#       - jenkins_network
+
+# networks:
+#   jenkins_network:
+#     driver: bridge
+
+# volumes:
+#   jenkins_home:

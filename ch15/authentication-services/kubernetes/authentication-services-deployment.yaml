@@ -21,7 +21,7 @@ spec:
             - containerPort: 8080
           env:
             - name: MONGODB_URL
-              value: "mongodb://auction_app:auction123@192.168.100.89:27017/authentication_db?authSource=admin"
+              value: "mongodb://auction_app:auction123@192.168.8.68:27017/authentication_db?authSource=admin"
             - name: USER-SERVICES
               value: "http://user-services.default.svc.cluster.local"
 #
