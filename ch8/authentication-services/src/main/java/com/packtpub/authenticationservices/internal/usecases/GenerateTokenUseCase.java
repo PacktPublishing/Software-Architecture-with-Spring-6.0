@@ -6,6 +6,7 @@ import com.packtpub.authenticationservices.internal.repositories.TokenRepository
 import com.packtpub.authenticationservices.internal.repositories.UserRepository;
 
 import java.util.Optional;
+import java.util.concurrent.TimeoutException;
 
 public class GenerateTokenUseCase {
 

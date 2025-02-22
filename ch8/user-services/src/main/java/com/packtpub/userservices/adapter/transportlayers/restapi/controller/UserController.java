@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 
 @RestController
@@ -42,15 +44,18 @@ public class UserController {
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @GetMapping
-    //@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<UserResponse>> getUsers() {
         List<User> users = getUsersUseCase.execute();
         List<UserResponse> userResponses = users.stream().map(n -> new UserResponse(n.getId(), n.getName(), n.getEmail(), n.getPhoneNumber(), n.getCity(), n.getState(), n.getCountry(), n.getRoles())).collect(Collectors.toList());
         return ! users.isEmpty() ? new ResponseEntity<>(userResponses, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping( value ="/{username}/roles")
-    public ResponseEntity<RoleResponse> getUserRoles(@PathVariable("username") String username) {
+    @GetMapping(value = "/{username}/roles")
+    public ResponseEntity<RoleResponse> getUserRoles(@PathVariable("username") String username) throws TimeoutException, InterruptedException {
+
+        // Enable to test bulkhead
+        // Thread.sleep(20000);
+
         List<String> roles = getUserRolesUseCase.execute(username);
         RoleResponse roleResponse = new RoleResponse();
         roleResponse.setRoles(roles);

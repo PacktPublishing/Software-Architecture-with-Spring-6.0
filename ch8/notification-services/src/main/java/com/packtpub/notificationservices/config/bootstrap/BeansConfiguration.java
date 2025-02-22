@@ -23,7 +23,6 @@ public class BeansConfiguration {
         return new AuthenticationRestApi(restClient, discoveryClient);
     }
 
-
     @Bean
     public CreateNotificationUseCase createNotificationUseCase(NotificationDocumentRepository notificationDocumentRepository){
         NotificationDatasource notificationDatasource = new NotificationDatasource(notificationDocumentRepository);

@@ -14,30 +14,4 @@ public class NotificationservicesApplication {
 		SpringApplication.run(NotificationservicesApplication.class, args);
 	}
 
-//	@Bean
-//	public Consumer<String> consume() {
-//		return message -> {
-//			System.out.println("Received message: " + message);
-//			// Process the message here
-//		};
-//	}
-//
-//	@Bean
-//	public Consumer<Message<String>> consume() {
-//		return message -> {
-//			String payload = message.getPayload();
-//			String headerValue = message.getHeaders().get("myHeader", String.class);
-//
-//			System.out.println("Received message: " + payload);
-//			System.out.println("Received header: " + headerValue);
-//
-//			// Process the message here, e.g., convert the payload if it's JSON, etc.
-//		};
-//	}
-//
-
-//	@KafkaListener(topics = "bid-added-topic", groupId = "my-consumer-group")
-//	public void listen(String message) {
-//		System.out.println("Received message: " + message);
-//	}
 }

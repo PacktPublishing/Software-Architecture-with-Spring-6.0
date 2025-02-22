@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.function.Function;
 
 @Service
@@ -35,13 +36,13 @@ public class TokenJwt implements TokenRepository {
     }
 
     @Override
-    public boolean validate(String token) {
+    public Authentication validate(String token) {
         try {
             token = token.replaceFirst("Bearer ", "");
-            final String username = extractUsername(token);
-            return (!"".equals(username) && username != null && !isTokenExpired(token));
+            final Claims claims = extractAllClaims(token);
+            return new Authentication(claims.getSubject(), (List) claims.get("roles"));
         } catch (Exception ex){
-            return false;
+            return null;
         }
     }
 

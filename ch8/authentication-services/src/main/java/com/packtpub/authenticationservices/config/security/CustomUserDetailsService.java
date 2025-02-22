@@ -1,7 +1,7 @@
 package com.packtpub.authenticationservices.config.security;
 
 import com.packtpub.authenticationservices.adapter.datasources.AuthenticationMongoDatasource;
-import com.packtpub.authenticationservices.adapter.datasources.AuthenticationEntity;
+import com.packtpub.authenticationservices.adapter.datasources.AuthenticationDocument;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,7 +24,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         List<GrantedAuthority> authorityList = new ArrayList<>();
 
-        AuthenticationEntity authentication = authenticationRepository.findByUsername(username)
+        AuthenticationDocument authentication = authenticationRepository.findByUsername(username)
                 .orElseThrow(() -> new
                         UsernameNotFoundException("User not found with username: " + username));
 

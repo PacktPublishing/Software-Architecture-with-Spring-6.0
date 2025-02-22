@@ -2,9 +2,10 @@ package com.packtpub.authenticationservices.adapter.transportlayers.restapi.cont
 
 import com.packtpub.authenticationservices.adapter.transportlayers.restapi.dto.request.AuthenticationRequest;
 import com.packtpub.authenticationservices.adapter.transportlayers.restapi.dto.response.AuthenticationResponse;
+import com.packtpub.authenticationservices.adapter.transportlayers.restapi.dto.response.AuthenticationUserResponse;
+import com.packtpub.authenticationservices.internal.entities.Authentication;
 import com.packtpub.authenticationservices.internal.usecases.GenerateTokenUseCase;
 import com.packtpub.authenticationservices.internal.usecases.ValidateTokenUseCase;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,15 +24,14 @@ public class AuthenticationController {
     }
 
     @PostMapping
-    public ResponseEntity<AuthenticationResponse> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest, @RequestHeader HttpHeaders headers) throws Exception {
+    public ResponseEntity<AuthenticationResponse> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
         final Optional<String> token = generateTokenUseCase.execute(authenticationRequest.getUsername(), authenticationRequest.getPassword());
         return ResponseEntity.ok(new AuthenticationResponse(token.get()));
     }
 
     @GetMapping("/validate")
-    public ResponseEntity<Boolean> validateToken(@RequestParam String token) {
-        final boolean isTokenValid = validateTokenUseCase.execute(token);
-        return ResponseEntity.ok(isTokenValid);
-
+    public ResponseEntity<AuthenticationUserResponse> validateToken(@RequestParam String token) {
+        final Authentication authentication = validateTokenUseCase.execute(token);
+        return authentication !=  null ? ResponseEntity.ok(new AuthenticationUserResponse(authentication.getUsername(), authentication.getRoles())) : null;
     }
 }

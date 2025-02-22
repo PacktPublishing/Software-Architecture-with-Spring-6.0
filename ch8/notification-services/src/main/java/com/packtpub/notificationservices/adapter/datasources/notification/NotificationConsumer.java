@@ -23,16 +23,8 @@ public class NotificationConsumer {
     public Consumer<Message<Bid>> consume() {
         return message -> {
 
-            // Get the Bid payload from the message
             Bid bid = message.getPayload();
-
-            // Get a specific header (e.g., "myHeader")
-            //String headerValue = message.getHeaders().get("myHeader", String.class);
-
-            // Process the Bid object and the header
             System.out.println("Received Bid: " + bid.toString());
-//            System.out.println("Received header: " + headerValue);
-
             createNotificationUseCase.execute(bid);
 
         };

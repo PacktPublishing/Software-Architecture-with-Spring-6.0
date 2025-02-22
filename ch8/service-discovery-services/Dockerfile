@@ -7,6 +7,10 @@ RUN mvn clean package
 
 ## Stage 2: Runtime Stage
 FROM openjdk:21-jdk-slim
+
+# Install curl
+RUN apt-get update && apt-get install -y curl
+
 WORKDIR /app
 COPY --from=builder /app/target/service-discovery-services*.jar ./service-discovery-services.jar
 EXPOSE 8080

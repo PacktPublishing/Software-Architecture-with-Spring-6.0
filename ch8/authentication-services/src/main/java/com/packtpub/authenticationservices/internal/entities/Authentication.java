@@ -22,6 +22,11 @@ public class Authentication {
     public Authentication() {
     }
 
+    public Authentication( String username,  List<String> roles) {
+        this.username = username;
+        this.roles = roles;
+    }
+
     public Authentication(Long id, String username, String password, boolean accountNonExpired, boolean isEnabled, boolean accountNonLocked, boolean credentialsNonExpired, List<String> roles) {
         this.id = id;
         this.username = username;

@@ -361,7 +361,7 @@ The book provides sample code for each major chapter, allowing readers to experi
          * Configuration Services
          * Discovery Services
          * Gateway Services
-    4. Go to ch7/[01-Service-Discovery | 02-Load-Balancer | 03-Gateway | 04-Configuration-Server - 05-Resiliency] folder and for each microservices execute the command: ```mvn clean package``` and then  ```mvn spring-boot:run```
+    4. Go to ch7/[01-Service-Discovery | 02-Load-Balancer | 03-Gateway | 04-Configuration-Server | 05-Resiliency] folder and for each microservices execute the command: ```mvn clean package``` and then  ```mvn spring-boot:run```
          * To run more than one service instance, use the command: ``` mvn spring-boot:run -Dspring-boot.run.arguments="--server.port=<port_number>"  ``` 
     5. Go to the project's folder: postman and import the collection
     6. Now, execute the request for the desired service.
@@ -380,6 +380,55 @@ The book provides sample code for each major chapter, allowing readers to experi
     - https://hub.docker.com/_/mongo
     - https://spring.io/guides/gs/service-registration-and-discovery
 
+- ## Chapter 8 : Event-Driven Architecture
+  
+    - ch8:
+      - docker-resources/
+        - kafka
+          - docker-compose.yml -> Run an image of Kafka.
+        - databases
+          - postgresql/
+            - init.sql -> SQL DDL and DML
+          - mongo-init/
+            - init.js -> Create database, collection and insert data.
+          - .env -> PostgreSQL and MongoDB credentials
+          - docker-compose.yml -> Run an image of PostgreSQL and MongoDB, populate them with data, and run all.
+      - postman
+        - ch08.postman_collection.json -> Postman collection for chapter 8 to request the services.
+      - online-auction-configuration -> Applications properties saved on GitHub
+      - service-discovery-services -> Service discovery (Eureka Server) code.
+      - configuration-services -> Configuration service's code.
+      - gateway-services -> Gateway services code.
+      - authentication-services -> Authentication services code.
+      - user-services -> User services code.
+      - product-services -> Product services code.
+      - bid-services -> Bid services code.
+      - notification-services -> Product services code.
+
+  #### Prerequisites:
+      - Java 21
+      - Docker and Docker Compose
+      - Maven 3.9.9
+
+  ## Instructions: 
+    ### To set up environment and run the project (Run the services via IDE):
+    ## Piper and Filter Architecture
+    1. Go the docker ch9/docker-resources folder
+    2. Execute the command: ```docker-compose up -d```
+    3. Open the etl-batch-process application into your favorite IDE 
+    4. For each microservices execute the command: ```mvn clean package``` and then  ```mvn spring-boot:run```    
+    6. Now, execute the request for the desired service.
+    5. To check the data inserted into tables, connect to the PostgreSQL: 
+        - Url: jdbc:postgresql://localhost:5432/report_db
+        - User: auction_app
+        - Password: auction123
+
+    ## Serverless Architecture
+    1. Open the alerting-faas application into your favorite IDE 
+    2. Execute the command: ```mvn clean package``` and then  ```mvn spring-boot:run```    
+    3. Go to the project's folder: postman and import the collection
+    4. Now, execute the request for the desired service.
+
 - ## Chapter 9 : Pipe and Filter and Serverless Architecture
   
     - ch9:
@@ -387,7 +436,7 @@ The book provides sample code for each major chapter, allowing readers to experi
         - postgresql/
           - init.sql -> SQL DDL and DML
         - .env -> PostgreSQL credentials
-        - docker-compose.yml -> Run an image of PostgreSQL and populate it. Run Kafka.
+        - docker-compose.yml -> Run an image of PostgreSQL and populate it.
       - postman
         - ch9.postman_collection.json -> Postman collection for chapter 9 to request the services.
       - data-files/ -> CSV files that are to be processed and their data inserted into the database.

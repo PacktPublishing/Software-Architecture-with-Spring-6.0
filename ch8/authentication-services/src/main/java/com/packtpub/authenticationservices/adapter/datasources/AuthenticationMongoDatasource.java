@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface AuthenticationMongoDatasource extends MongoRepository<AuthenticationEntity, Long> {
-    Optional<AuthenticationEntity> findByUsername(String username);
+public interface AuthenticationMongoDatasource extends MongoRepository<AuthenticationDocument, String> {
+    Optional<AuthenticationDocument> findByUsername(String username);
 }

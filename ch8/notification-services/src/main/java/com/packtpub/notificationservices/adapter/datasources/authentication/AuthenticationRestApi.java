@@ -19,17 +19,17 @@ public class AuthenticationRestApi {
         this.discoveryClient = discoveryClient;
     }
 
-    public boolean validateToken(String token) {
-        ServiceInstance serviceInstance = discoveryClient.getInstances("AUTHENTICATION-SERVICES").get(0);
+    public AuthenticationUser validateToken(String token) {
 
-        Boolean result = restClient.get()
+        ServiceInstance serviceInstance = discoveryClient.getInstances("AUTHENTICATION-SERVICES").getFirst();
+
+        return restClient.get()
                 .uri(serviceInstance.getUri() + "/v1/api/auth/validate?token={token}", token)
                 .retrieve()
                 .onStatus(HttpStatusCode::is5xxServerError, (request, response) -> {
                     throw new BusinessException(response.getStatusCode().toString(), response.getStatusText());
                 })
-                .body(Boolean.class);
-        return Boolean.TRUE.equals(result);
+                .body(AuthenticationUser.class);
     }
 
 }
