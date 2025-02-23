@@ -358,8 +358,8 @@ The book provides sample code for each major chapter, allowing readers to experi
     2. Execute the command: ```docker-compose up -d```
     3. Open the microservices into your favorite IDE 
        * RUN THE SERVICES IN THE FOLLOWING ORDER: 
-         * Configuration Services
          * Discovery Services
+         * Configuration Services
          * Gateway Services
     4. Go to ch7/[01-Service-Discovery | 02-Load-Balancer | 03-Gateway | 04-Configuration-Server | 05-Resiliency] folder and for each microservices execute the command: ```mvn clean package``` and then  ```mvn spring-boot:run```
          * To run more than one service instance, use the command: ``` mvn spring-boot:run -Dspring-boot.run.arguments="--server.port=<port_number>"  ``` 
@@ -392,7 +392,7 @@ The book provides sample code for each major chapter, allowing readers to experi
           - mongo-init/
             - init.js -> Create database, collection and insert data.
           - .env -> PostgreSQL and MongoDB credentials
-          - docker-compose.yml -> Run an image of PostgreSQL and MongoDB, populate them with data, and run all.
+          - docker-compose.yml -> Run images of PostgreSQL and MongoDB, populate them with data, and execute both databases.
       - postman
         - ch08.postman_collection.json -> Postman collection for chapter 8 to request the services.
       - online-auction-configuration -> Applications properties saved on GitHub
@@ -402,8 +402,11 @@ The book provides sample code for each major chapter, allowing readers to experi
       - authentication-services -> Authentication services code.
       - user-services -> User services code.
       - product-services -> Product services code.
-      - bid-services -> Bid services code.
-      - notification-services -> Product services code.
+      - notification-services -> Notification services code.
+      - #### approach-functional
+        - bid-services -> Bid services code using the functional approach.
+      - #### approach-stream-bridge
+         - bid-services -> Bid services code using the stream bridge approach.
 
   #### Prerequisites:
       - Java 21
@@ -412,22 +415,31 @@ The book provides sample code for each major chapter, allowing readers to experi
 
   ## Instructions: 
     ### To set up environment and run the project (Run the services via IDE):
-    ## Piper and Filter Architecture
-    1. Go the docker ch9/docker-resources folder
-    2. Execute the command: ```docker-compose up -d```
-    3. Open the etl-batch-process application into your favorite IDE 
-    4. For each microservices execute the command: ```mvn clean package``` and then  ```mvn spring-boot:run```    
-    6. Now, execute the request for the desired service.
-    5. To check the data inserted into tables, connect to the PostgreSQL: 
-        - Url: jdbc:postgresql://localhost:5432/report_db
+    1. Go the docker ch8/docker-resources/databases folder
+    2. Execute the command: ```docker-compose up -d``` to run the databases.
+    3. Go the docker ch8/docker-resources/kafka folder
+    4. Execute the command: ```docker-compose up -d``` to run the Kafka.
+    5. Go to ch8 folder and open the microservices into your favorite IDE.
+       * RUN THE SERVICES IN THE FOLLOWING ORDER: 
+         * service-discovery-services
+         * configuration-services
+         * gateway-services
+         * authentication-services
+         * user-services
+         * approach-functional/bid-services OR approach-stream-bridge/bid-services
+         * notification-services
+         * product-services (optional)
+    6. Go to the project's folder: postman and import the collection
+    7. Now, execute the request for the desired service.
+    8. To connect to the PostgreSQL: 
+        - Url user database: jdbc:postgresql://localhost:5432/user_db
+        - Url product database: jdbc:postgresql://localhost:5432/product_db
         - User: auction_app
         - Password: auction123
-
-    ## Serverless Architecture
-    1. Open the alerting-faas application into your favorite IDE 
-    2. Execute the command: ```mvn clean package``` and then  ```mvn spring-boot:run```    
-    3. Go to the project's folder: postman and import the collection
-    4. Now, execute the request for the desired service.
+    9. To connect to the MongoDB: mongodb://auction_app:auction123@localhost:27017/
+    authentication_db?authSource=admin
+        - User: auction_app
+        - Password: auction123    
 
 - ## Chapter 9 : Pipe and Filter and Serverless Architecture
   
