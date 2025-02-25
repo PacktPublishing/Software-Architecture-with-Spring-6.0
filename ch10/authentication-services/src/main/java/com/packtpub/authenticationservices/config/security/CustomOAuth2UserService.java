@@ -1,5 +1,6 @@
 package com.packtpub.authenticationservices.config.security;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
@@ -7,6 +8,7 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
@@ -18,16 +20,9 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         String email = oAuth2User.getAttribute("email");
         String name = oAuth2User.getAttribute("name");
 
-        // Save or update user in DB
-//        Optional<User> existingUser = userRepository.findByGoogleId(googleId);
-//
-//        if (existingUser.isEmpty()) {
-//            User newUser = new User();
-//            newUser.setGoogleId(googleId);
-//            newUser.setEmail(email);
-//            newUser.setName(name);
-//            userRepository.save(newUser);
-//        }
+        log.info("User with googleId: {}, name {}, and email: {}", googleId, name, email);
+
+        // We could store users information in a database, call a service or push the data to a queue, modify roles dynamically, etc...
 
         return oAuth2User;
     }

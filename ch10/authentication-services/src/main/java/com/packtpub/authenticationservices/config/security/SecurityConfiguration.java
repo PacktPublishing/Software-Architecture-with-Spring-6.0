@@ -23,9 +23,6 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 
 import java.io.IOException;
 
@@ -52,9 +49,13 @@ public class SecurityConfiguration {
                 .oauth2Login(oauth2Login ->
                         oauth2Login
                                 .loginPage("/oauth2/authorization/google")
-//                                .userInfoEndpoint(userInfoEndpoint ->
-//                                        userInfoEndpoint.userService(oauth2UserService())
-//                                )
+
+                                //You could use userInfoEndpoint().userService(...) if we want to customize user retrieval,
+                                // store users in a database, send data to a service, queue or modify roles dynamically.
+                                .userInfoEndpoint(userInfoEndpoint ->
+                                        userInfoEndpoint.userService(oauth2UserService())
+                                )
+
                                 .successHandler(customAuthenticationSuccessHandler) // Custom success handler
                 )
                 .sessionManagement(session -> session

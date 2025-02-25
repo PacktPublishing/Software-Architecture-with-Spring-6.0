@@ -483,6 +483,59 @@ The book provides sample code for each major chapter, allowing readers to experi
     3. Go to the project's folder: postman and import the collection
     4. Now, execute the request for the desired service.
 
+- ## Chapter 10 : Security
+  
+    - ch10:
+      - docker-resources/
+        - postgresql/
+          - init.sql -> SQL DDL and DML
+        - mongo-init/
+          - init.js -> Create database, collection and insert data.
+        - .env -> PostgreSQL and MongoDB credentials
+        - docker-compose.yml -> Run images of PostgreSQL and MongoDB, populate them with data, and execute both databases.
+      - online-auction-configuration -> Applications properties saved on GitHub
+      - service-discovery-services -> Service discovery (Eureka Server) code.
+      - configuration-services -> Configuration service's code.
+      - gateway-services -> Gateway services code.
+      - authentication-services -> Authentication services code.
+      - user-services -> User services code.
+      - product-services -> Product services code.
+      - onlineauction-client-web -> Web application React 
+
+  #### Prerequisites:
+      - Java 21
+      - Docker and Docker Compose
+      - Maven 3.9.9
+      - Node.js and npm
+
+  ## Instructions: 
+    ### To set up environment and run the project (Run the services via IDE):
+    1. Go the docker ch10/docker-resources/databases folder.
+    2. Execute the command: ```docker-compose up -d``` to run the databases.
+    3. Go to ch10 folder and open the microservices into your favorite IDE.
+       * RUN THE SERVICES IN THE FOLLOWING ORDER: 
+         * service-discovery-services
+         * configuration-services
+         * gateway-services
+         * authentication-services
+         * user-services
+         * product-services (optional)
+    4. To connect to the PostgreSQL: 
+        - Url user database: jdbc:postgresql://localhost:5432/user_db
+        - Url product database: jdbc:postgresql://localhost:5432/product_db
+        - User: auction_app
+        - Password: auction123
+    5. To connect to the MongoDB: mongodb://auction_app:auction123@localhost:27017/
+    authentication_db?authSource=admin
+        - User: auction_app
+        - Password: auction123    
+
+    ### To set up environment and run the project (Web Client):
+    1. Go to ch10/onlineauction-client-web folder.
+    2. To install the dependencies execute the command: ```npm install``` .
+    3. To run the web application execute the command: ```npm start ````
+    4. The browser will be opened with the web application in the URL: ```http://localthost:3000```
+
     
 ### Who This Book is For
 

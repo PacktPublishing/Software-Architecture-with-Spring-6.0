@@ -31,7 +31,7 @@ public class GlobalHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ProblemDetail handleSecurityException(Exception exception) {
-        ProblemDetail errorDetail = null;
+        ProblemDetail errorDetail;
 
         return switch (exception) {
             case BadCredentialsException ex -> {
