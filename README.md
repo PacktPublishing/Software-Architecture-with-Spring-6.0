@@ -207,8 +207,8 @@ The book provides sample code for each major chapter, allowing readers to experi
 - ## Chapter 7 : Microservices Patterns with Spring Cloud
   ### ALERT ###
   Run the services in the order they appear for each folder. Generally, it is :
-   1. configuration-services
-   2. service-discovery-services
+   1. service-discovery-services
+   2. configuration-services
    3. gateway-services
    4. Other services such as authentication, user, and product services.
 
