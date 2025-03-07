@@ -552,7 +552,7 @@ The book provides sample code for each major chapter, allowing readers to experi
           - otel-collector-config.yml -> The configuration file for the OpenTelemetry Collector. It defines settings for receivers, processors, and exporters, specifying how telemetry data (logs, metrics, and traces) should be collected, processed, and sent to observability backends like Jaeger, Prometheus, or Elasticsearch.
           - logstash/
               - pipeline/
-                - logstash.conf -> Logstash configuration file to instruct Logstash to process incoming logs from Spring Boot applications and send them to Elasticsearch
+                - logstash.conf -> Logstash configuration file to instruct Logstash to process incoming logs from Spring Boot applications and send them to Elasticsearch.
       - postman
         - ch11.postman_collection.json -> Postman collection for chapter 11 to request the services.
       - online-auction-configuration -> Applications properties saved on GitHub
