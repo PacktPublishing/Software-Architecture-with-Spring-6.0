@@ -536,7 +536,62 @@ The book provides sample code for each major chapter, allowing readers to experi
     3. To run the web application execute the command: ```npm start ````
     4. The browser will be opened with the web application in the URL: ```http://localthost:3000```
 
-    
+- ## Chapter 11 : Observability
+  
+    - ch11:
+      - docker-resources/
+        - databases/
+          - postgresql/
+            - init.sql -> SQL DDL and DML
+          - mongo-init/
+            - init.js -> Create database, collection and insert data.
+          - .env -> PostgreSQL and MongoDB credentials
+          - docker-compose.yml -> Run images of PostgreSQL and MongoDB, populate them with data, and execute both databases.
+        - observability/
+          - docker-compose.yml -> Run images of Elasticsearch, Logstash, Kibana, Opentelemetry Collector and Zipkin.
+          - otel-collector-config.yml -> The configuration file for the OpenTelemetry Collector. It defines settings for receivers, processors, and exporters, specifying how telemetry data (logs, metrics, and traces) should be collected, processed, and sent to observability backends like Jaeger, Prometheus, or Elasticsearch.
+          - logstash/
+              - pipeline/
+                - logstash.conf -> Logstash configuration file to instruct Logstash to process incoming logs from Spring Boot applications and send them to Elasticsearch
+      - postman
+        - ch11.postman_collection.json -> Postman collection for chapter 11 to request the services.
+      - online-auction-configuration -> Applications properties saved on GitHub
+      - service-discovery-services -> Service discovery (Eureka Server) code.
+      - configuration-services -> Configuration service's code.
+      - gateway-services -> Gateway services code.
+      - authentication-services -> Authentication services code.
+      - user-services -> User services code.
+      - product-services -> Product services code.
+
+  #### Prerequisites:
+      - Java 21
+      - Docker and Docker Compose
+      - Maven 3.9.9
+
+  ## Instructions: 
+    ### To set up environment and run the project (Run the services via IDE):
+    1. Go the docker ch11/docker-resources/databases folder.
+    2. Execute the command: ```docker-compose up -d``` to run the databases.
+    3. Go the docker ch11/docker-resources/observability folder.
+    4. Execute the command: ```docker-compose up -d``` to run the Elasticsearch, Logstash, Kibana, Opentelemetry Collector and Zipkin.
+    5. Go to ch11 folder and open the microservices into your favorite IDE.
+       * RUN THE SERVICES IN THE FOLLOWING ORDER: 
+         * service-discovery-services
+         * configuration-services
+         * gateway-services
+         * authentication-services
+         * user-services
+         * product-services (optional)
+    6. To connect to the PostgreSQL: 
+        - Url user database: jdbc:postgresql://localhost:5432/user_db
+        - Url product database: jdbc:postgresql://localhost:5432/product_db
+        - User: auction_app
+        - Password: auction123
+    7. To connect to the MongoDB: mongodb://auction_app:auction123@localhost:27017/
+    authentication_db?authSource=admin
+        - User: auction_app
+        - Password: auction123    
+
 ### Who This Book is For
 
 - Software architects looking to deepen their knowledge of Spring-based architecture.
