@@ -48,7 +48,6 @@
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <!-- Include traceId and spanId in the console log pattern -->
-<!--            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level [%X{traceId:-},%X{spanId:-}] %logger{36} - %msg%n</pattern>-->
             <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level [%X{traceId:-},%X{spanId:-}] [%property{spring.application.name:-}] %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>

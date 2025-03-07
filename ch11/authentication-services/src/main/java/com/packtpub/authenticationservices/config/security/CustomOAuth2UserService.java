@@ -19,15 +19,6 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         String name = oAuth2User.getAttribute("name");
 
         // Save or update user in DB
-//        Optional<User> existingUser = userRepository.findByGoogleId(googleId);
-//
-//        if (existingUser.isEmpty()) {
-//            User newUser = new User();
-//            newUser.setGoogleId(googleId);
-//            newUser.setEmail(email);
-//            newUser.setName(name);
-//            userRepository.save(newUser);
-//        }
 
         return oAuth2User;
     }

@@ -33,10 +33,4 @@ public class BeansConfiguration {
         return new CustomAuthenticationSuccessHandler(tokenJwt);
     }
 
-//    @LoadBalanced
-//    @Bean
-//    public RestClient.Builder restClient() {
-//        return RestClient.builder();
-//    }
-
 }

@@ -1,7 +1,6 @@
 package com.packtpub.productservices.adapter.datasources.authentication;
 
 import com.packtpub.productservices.internal.exception.BusinessException;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.HttpStatusCode;

@@ -1,7 +1,6 @@
 package com.packtpub.productservices.config.bootstrap;
 
 //import io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import com.packtpub.productservices.internal.repositories.ProductRepository;
 import com.packtpub.productservices.internal.usecases.GetProductsUseCase;

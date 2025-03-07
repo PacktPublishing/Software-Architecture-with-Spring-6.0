@@ -10,7 +10,6 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
 import java.io.IOException;
-import java.util.UUID;
 
 @Component
 public class CorrelationIdFilter extends OncePerRequestFilter {
