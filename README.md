@@ -592,6 +592,60 @@ The book provides sample code for each major chapter, allowing readers to experi
         - User: auction_app
         - Password: auction123    
 
+- ## Chapter 12 : Testing
+  
+    - ch12:
+      - docker-resources/
+        - databases/
+          - postgresql/
+            - init.sql -> SQL DDL and DML
+          - mongo-init/
+            - init.js -> Create database, collection and insert data.
+          - .env -> PostgreSQL and MongoDB credentials
+          - docker-compose.yml -> Run images of PostgreSQL and MongoDB, populate them with data, and execute both databases.
+        - observability/
+          - docker-compose.yml -> Run images of Elasticsearch, Logstash, Kibana, Opentelemetry Collector and Zipkin.
+      -JMeter/
+        - Thread Group.jmx -> This is the configuration file for the stress test. If you wish, you can import it into JMeter instead of following the steps.
+      - online-auction-configuration -> Applications properties saved on GitHub
+      - service-discovery-services -> Service discovery (Eureka Server) code.
+      - configuration-services -> Configuration service's code.
+      - gateway-services -> Gateway services code.
+      - authentication-services -> Authentication services code.
+      - user-services -> User services code.The unit and integration tests lie here.
+      - product-services -> Product services code.
+      
+
+  #### Prerequisites:
+      - Java 21
+      - Docker and Docker Compose
+      - Maven 3.9.9
+      - Apache JMeter 5.6.3
+
+  ## Instructions: *** IT IS NEEDED TO RUN THE STRESS TEST ONLY:
+    ### To set up environment and run the project (Run the services via IDE) 
+    1. Go the docker ch12/docker-resources folder.
+    2. Execute the command: ```docker-compose up -d``` to run the databases.
+    3. Go the docker ch11/docker-resources/observability folder.
+    4. Execute the command: ```docker-compose up -d``` to run the Elasticsearch, Logstash, Kibana, Opentelemetry Collector and Zipkin.
+    4. Go to ch12 folder and open the microservices into your favorite IDE.
+       * RUN THE SERVICES IN THE FOLLOWING ORDER: 
+         * service-discovery-services
+         * configuration-services
+         * gateway-services
+         * authentication-services
+         * user-services
+         * product-services (optional)
+    5. To connect to the PostgreSQL: 
+        - Url user database: jdbc:postgresql://localhost:5432/user_db
+        - Url product database: jdbc:postgresql://localhost:5432/product_db
+        - User: auction_app
+        - Password: auction123
+    6. To connect to the MongoDB: mongodb://auction_app:auction123@localhost:27017/
+    authentication_db?authSource=admin
+        - User: auction_app
+        - Password: auction123 
+
 ### Who This Book is For
 
 - Software architects looking to deepen their knowledge of Spring-based architecture.
