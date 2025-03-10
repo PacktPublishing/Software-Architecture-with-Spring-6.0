@@ -194,18 +194,6 @@
 <!--                    </systemPropertyVariables>-->
 <!--                </configuration>-->
             </plugin>
-            <plugin>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-contract-maven-plugin</artifactId>
-                <extensions>true</extensions>
-                <version>4.1.4</version>
-                <configuration>
-                    <baseClassForTests>
-                        com.packtpub.userservices.adapter.transportlayers.restapi.controller.contrattesting.producer.IntegrationTestBase
-                    </baseClassForTests>
-                    <testFramework>JUNIT5</testFramework>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 

@@ -1,43 +1,5 @@
 <configuration>
 
-    <!-- Define the appender that sends logs to Logstash -->
-    <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <destination>localhost:5000</destination>
-
-        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
-            <providers>
-                <timestamp>
-                    <timeZone>UTC</timeZone>
-                </timestamp>
-                <logLevel />
-                <loggerName />
-                <threadName />
-                <message />
-                <mdc />
-                <context />
-                <stackTrace />
-                <callerData />
-                <pattern>
-                    <pattern>
-                        {
-                        "level": "%level",
-                        "logger": "%logger",
-                        "message": "%message",
-                        "exception": "%exception",
-                        "mdc": "%mdc",
-                        "thread": "%thread",
-                        "caller": {
-                        "class": "%class",
-                        "method": "%method",
-                        "line": "%line"
-                        }
-                        }
-                    </pattern>
-                </pattern>
-            </providers>
-        </encoder>
-    </appender>
-
     <!-- Define the appender that logs to the console -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -48,7 +10,6 @@
     <!-- Set the root logger level and direct logs to both Console and Logstash appenders -->
     <root level="info">
         <appender-ref ref="CONSOLE" />
-        <appender-ref ref="LOGSTASH" />
     </root>
 
 </configuration>

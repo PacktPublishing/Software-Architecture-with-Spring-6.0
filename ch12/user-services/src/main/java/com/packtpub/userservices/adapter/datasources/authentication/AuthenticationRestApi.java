@@ -1,6 +1,5 @@
 package com.packtpub.userservices.adapter.datasources.authentication;
 
-import com.packtpub.userservices.adapter.transportlayers.restapi.dto.response.RoleResponse;
 import com.packtpub.userservices.config.correlation.CorrelationIdUtil;
 import io.opentelemetry.api.GlobalOpenTelemetry;
 import io.opentelemetry.api.trace.Span;
@@ -8,24 +7,17 @@ import io.opentelemetry.context.Context;
 import io.opentelemetry.context.propagation.TextMapSetter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
 import java.net.URI;
-import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
 @Service
 public class AuthenticationRestApi {
 
-//    private final RestClient restClient;
-//
-//    private final DiscoveryClient discoveryClient;
 
     private final RestClient.Builder restClient;
 
