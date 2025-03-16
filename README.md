@@ -501,7 +501,6 @@ The book provides sample code for each major chapter, allowing readers to experi
       - Java 21
       - Docker and Docker Compose
       - Maven 3.9.9
-      - Node.js and npm
 
   ## Instructions: 
     ### To set up environment and run the project (Run the services via IDE):
