@@ -25,9 +25,6 @@ public class UserRestApi implements UserRepository {
         RoleResponse result = restClient.get()
                 .uri(userServiceUrl + "/v1/users/{username}/roles", username)
                 .retrieve()
-//                .onStatus(HttpStatusCode::is4xxClientError, (request, response) -> {
-//                    throw new MyCustomRuntimeException(response.getStatusCode(), response.getHeaders())
-//                })
                 .body(RoleResponse.class);
         return result.getRoles();
     }

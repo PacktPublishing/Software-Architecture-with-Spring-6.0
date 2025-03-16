@@ -1,7 +1,7 @@
-package com.packtpub.productservices.config.exceptions;
+package com.packtpub.authorizationserver.config.exceptions;
 
-import com.packtpub.productservices.internal.exception.BusinessException;
-import com.packtpub.productservices.internal.exception.BusinessExceptionResponse;
+import com.packtpub.authorizationserver.internal.exceptions.BusinessException;
+import com.packtpub.authorizationserver.internal.exceptions.BusinessExceptionResponse;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +30,7 @@ public class GlobalHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ProblemDetail handleSecurityException(Exception exception) {
-        ProblemDetail errorDetail = null;
+        ProblemDetail errorDetail;
 
         return switch (exception) {
             case BadCredentialsException ex -> {
@@ -49,7 +49,7 @@ public class GlobalHandler extends ResponseEntityExceptionHandler {
                 yield errorDetail;
             }
             case SignatureException ex -> {
-                errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(401), exception.getMessage());
+                errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(403), exception.getMessage());
                 errorDetail.setProperty("description", "The JWT signature is invalid");
                 yield errorDetail;
             }
