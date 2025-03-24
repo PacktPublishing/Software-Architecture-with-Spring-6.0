@@ -1,4 +1,4 @@
-# Publisher Packt
+# Packt Publisher
 ## Software Architecture with Spring 6 - A guide to building robust systems with Spring 6
 
 Welcome to the repository for **"Software Architecture with Spring 6"**! This book is a practical guide for software engineers, architects, and developers looking to master modern software architecture principles, especially in the context of Java and Spring Framework. 
