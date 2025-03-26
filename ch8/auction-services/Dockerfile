@@ -8,6 +8,6 @@ RUN mvn clean package
 ## Stage 2: Runtime Stage
 FROM openjdk:21-jdk-slim
 WORKDIR /app
-COPY --from=builder /app/target/escrow-services*.jar ./escrow-services.jar
+COPY --from=builder /app/target/auction-services*.jar ./auction-services.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "escrow-services.jar"]
+ENTRYPOINT ["java", "-jar", "auction-services.jar"]

@@ -59,7 +59,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3eGF1Y3Rpb24uY29tIiwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJpYXQiOjE3NDAyNTY3NjQsImV4cCI6MTc0MDM0MzE2NH0.xJGvTYQMg3kN78Fa5v-TvD8CQ8IR0bNN0UXyL027AmA",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3eGF1Y3Rpb24uY29tIiwicm9sZXMiOlsiUk9MRV9VU0VSIiwiUk9MRV9BRE1JTiJdLCJpYXQiOjE3NDI3NzcwMDcsImV4cCI6MTc0Mjg2MzQwN30.-7TuHcoiupzl0Ol1wlYXR0W1sC_zFZezxueYBBA0ttA",
 							"type": "string"
 						}
 					]
@@ -82,7 +82,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"auctionId\": \"66b695ece6101f6326d01e9d\",\n  \"userId\": 9,\n  \"amount\": 88.00\n}",
+					"raw": "{\n  \"auctionId\": \"1\",\n  \"userId\": 1,\n  \"amount\": 600.00\n}",
 					"options": {
 						"raw": {
 							"language": "json"
