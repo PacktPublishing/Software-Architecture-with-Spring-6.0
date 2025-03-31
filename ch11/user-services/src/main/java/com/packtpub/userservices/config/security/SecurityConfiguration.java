@@ -32,7 +32,6 @@ public class SecurityConfiguration {
                 .cors(cors -> corsFilter())
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/v1/users/{username}/roles", "/swagger-ui/**", "/v3/api-docs/**", "/actuator/**").permitAll()
-//                        .requestMatchers("/actuator/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session

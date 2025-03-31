@@ -1,62 +1,71 @@
 package com.packtpub.userservices.adapter.transportlayers.restapi.controller;
 
-import com.packtpub.userservices.adapter.transportlayers.restapi.dto.response.RoleResponse;
+import com.packtpub.userservices.adapter.datasources.authentication.AuthenticationRestApi;
+import com.packtpub.userservices.internal.entity.Role;
+import com.packtpub.userservices.internal.entity.User;
 import com.packtpub.userservices.internal.usecases.GetUserRolesUseCase;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import com.packtpub.userservices.internal.usecases.GetUsersUseCase;
 
-import java.util.List;
-import java.util.concurrent.TimeoutException;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.hamcrest.Matchers.hasSize;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.web.servlet.MockMvc;
+
+import org.springframework.http.MediaType;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+
+@WebMvcTest(UserController.class)
+@AutoConfigureMockMvc(addFilters = false)
 class UserControllerTest {
 
-    @Mock
+    @Autowired
+    private MockMvc mockMvc;
+
+    @MockBean
+    private GetUsersUseCase getUsersUseCase;
+
+    @MockBean
+    private AuthenticationRestApi authenticationRestApi;
+
+    @MockBean
     private GetUserRolesUseCase getUserRolesUseCase;
 
-    @InjectMocks
-    private UserController userController;
+    @Test
+    void getUsers_shouldReturnListOfUsers_whenUsersExist() throws Exception {
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
+        List<User> users = List.of(
+                new User(1L, "Alice", "alice@example.com", "123456789", "City", "State", "Country", Set.of(new Role(1L, "ROLE_USER"))),
+                new User(2L, "Bob", "bob@example.com", "987654321", "City", "State", "Country", Set.of(new Role(2L,"ROLE_ADMIN")))
+        );
+
+        when(getUsersUseCase.execute()).thenReturn(users);
+
+        mockMvc.perform(get("/v1/users") // adjust endpoint if @RequestMapping is present
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].name").value("Alice"))
+                .andExpect(jsonPath("$[1].email").value("bob@example.com"));
     }
 
     @Test
-    void getUserRoles_shouldReturnRoles_whenRolesExist() throws TimeoutException, InterruptedException {
+    void getUsers_shouldReturnNotFound_whenNoUsersExist() throws Exception {
+        when(getUsersUseCase.execute()).thenReturn(Collections.emptyList());
 
-        String username = "testUser";
-        String traceparent = "00-4bf92f3577b34da6a3ce929d0e0e4736-00";
-        List<String> roles = List.of("ROLE_USER", "ROLE_ADMIN");
-
-        when(getUserRolesUseCase.execute(username)).thenReturn(roles);
-
-        ResponseEntity<RoleResponse> response = userController.getUserRoles(username, traceparent);
-
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(roles, response.getBody().getRoles());
+        mockMvc.perform(get("/v1/users")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
-
-    @Test
-    void getUserRoles_shouldReturnNotFound_whenRolesDoNotExist() throws TimeoutException, InterruptedException {
-        // Arrange
-        String username = "testUser";
-        String traceparent = "00-4bf92f3577b34da6a3ce929d0e0e4736-00";
-
-        when(getUserRolesUseCase.execute(username)).thenReturn(List.of());
-
-        // Act
-        ResponseEntity<RoleResponse> response = userController.getUserRoles(username, traceparent);
-
-        // Assert
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-    }
-
 }

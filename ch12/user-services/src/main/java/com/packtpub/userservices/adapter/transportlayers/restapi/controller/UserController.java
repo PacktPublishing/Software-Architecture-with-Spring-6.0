@@ -38,7 +38,6 @@ public class UserController {
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @GetMapping
-    //@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<UserResponse>> getUsers() {
         List<User> users = getUsersUseCase.execute();
         List<UserResponse> userResponses = users.stream().map(n -> new UserResponse(n.getId(), n.getName(), n.getEmail(), n.getPhoneNumber(), n.getCity(), n.getState(), n.getCountry(), n.getRoles())).collect(Collectors.toList());
@@ -48,10 +47,6 @@ public class UserController {
     @GetMapping(value = "/{username}/roles")
     public ResponseEntity<RoleResponse> getUserRoles(@PathVariable("username") String username, @RequestHeader("traceparent") String traceparent) throws TimeoutException, InterruptedException {
         log.info("Received traceparent: {}", traceparent);  // Verify trace propagation
-
-        // Enable to test bulkhead
-        // Thread.sleep(20000);
-
         List<String> roles = getUserRolesUseCase.execute(username);
         RoleResponse roleResponse = new RoleResponse();
         roleResponse.setRoles(roles);

@@ -1,60 +1,50 @@
 package com.packtpub.userservices.adapter.datasources.user;
 
 import com.packtpub.userservices.internal.entity.User;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
 
 class UserJpaDatasourceTest {
 
-    @Mock
-    private UserJpaRepository userJpaRepository;
-
-    @InjectMocks
-    private UserJpaDatasource userJpaDatasource;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
-
     @Test
-    void findByUsername_shouldReturnUser_whenUserExists() {
-        // Arrange
+    void givenUserExists_whenFindByUsername_thenReturnUser() {
+
+        UserJpaRepository userJpaRepository = mock(UserJpaRepository.class);
+        UserJpaDatasource userJpaDatasource = new UserJpaDatasource(userJpaRepository);
+
         String name = "testUser";
         UserEntity userEntity = new UserEntity();
-        userEntity.setName("testUser");
+        userEntity.setName(name);
 
-        // Simulate the behavior of toDomain (assuming it returns the same User instance)
         when(userJpaRepository.findByUsername(name)).thenReturn(Optional.of(userEntity));
 
-        // Act
         Optional<User> result = userJpaDatasource.findByUsername(name);
 
-        // Assert
-        assertTrue(result.isPresent());
-        assertEquals(name, result.get().getName());
-
+            assertThat(result)
+                .isPresent()
+                .get()
+                .extracting(User::getName)
+                .isEqualTo(name);
     }
+
 
     @Test
     void findByUsername_shouldReturnEmpty_whenUserDoesNotExist() {
-        // Arrange
+
+        UserJpaRepository userJpaRepository = mock(UserJpaRepository.class);
+        UserJpaDatasource userJpaDatasource = new UserJpaDatasource(userJpaRepository);
+
         when(userJpaRepository.findByUsername(anyString())).thenReturn(Optional.empty());
 
-        // Act
         Optional<UserEntity> result = userJpaRepository.findByUsername("nonExistentUser");
 
-        // Assert
-        assertTrue(result.isEmpty());
+        assertThat(result).isNotPresent();
     }
 }
