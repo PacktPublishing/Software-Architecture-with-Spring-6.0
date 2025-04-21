@@ -1,0 +1,171 @@
+{
+	"info": {
+		"_postman_id": "2b017001-38f0-4f0a-a41e-85de54e84897",
+		"name": "ch13",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4179687",
+		"_collection_link": "https://gold-zodiac-469756.postman.co/workspace/SAWS6~dfe77395-c905-4e2b-93e1-a9acce6c5cc6/collection/4179687-2b017001-38f0-4f0a-a41e-85de54e84897?action=share&source=collection_link&creator=4179687"
+	},
+	"item": [
+		{
+			"name": "PRODUCTS - GET BY ID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQHd4YXVjdGlvbi5jb20iLCJyb2xlcyI6WyJST0xFX1VTRVIiXSwiaWF0IjoxNzMyNDk2OTU3LCJleHAiOjE3MzI1ODMzNTd9.-sEQnd4dxzhAd-3nexWFN_6S2suTf2fXmfVmjz1_iPU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQHd4YXVjdGlvbi5jb20iLCJyb2xlcyI6WyJST0xFX1VTRVIiXSwiaWF0IjoxNzI3ODMyMTk3LCJleHAiOjE3Mjc5MTg1OTd9.6_2_nRAwvPGEmLYHX5lyTf8rdjDmg3dAtX_jBTmkviE",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:9090/v1/products/15",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"v1",
+						"products",
+						"15"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PRODUCTS - ADD",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3eGF1Y3Rpb24uY29tIiwicm9sZXMiOlsiUk9MRV9VU0VSIiwiUk9MRV9BRE1JTiJdLCJpYXQiOjE3MzI4NDUwNjIsImV4cCI6MTczMjkzMTQ2Mn0.-AnSh2zU-hzU1rT6tujwUnaeEaCYXfEy3b2Okce1_t8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Produto novo xxx\",\n    \"description\": \"Fancy old motorbike\",\n    \"userId\": 2,\n    \"photoBase64\": \"cnFlcXdlcXdl\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8072/product-services/v1/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8072",
+					"path": [
+						"product-services",
+						"v1",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AUTH - LOGIN ADMIN",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3eGF1Y3Rpb24uY29tIiwicm9sZXMiOlsiUk9MRV9VU0VSIiwiUk9MRV9BRE1JTiJdLCJpYXQiOjE3MzI4NDUwNjIsImV4cCI6MTczMjkzMTQ2Mn0.-AnSh2zU-hzU1rT6tujwUnaeEaCYXfEy3b2Okce1_t8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"admin@wxauction.com\",\n    \"password\": \"test123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8072/authentication/v1/api/auth",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8072",
+					"path": [
+						"authentication",
+						"v1",
+						"api",
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PRODUCTS - GET ALL",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3eGF1Y3Rpb24uY29tIiwicm9sZXMiOlsiUk9MRV9VU0VSIiwiUk9MRV9BRE1JTiJdLCJpYXQiOjE3MzI4NDUzOTEsImV4cCI6MTczMjkzMTc5MX0.oxVQXbXCPEJXP8-yrFfTqeXki8N4_XJFRpZI9h7O1p0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyQHd4YXVjdGlvbi5jb20iLCJyb2xlcyI6WyJST0xFX1VTRVIiXSwiaWF0IjoxNzI3ODMyMTk3LCJleHAiOjE3Mjc5MTg1OTd9.6_2_nRAwvPGEmLYHX5lyTf8rdjDmg3dAtX_jBTmkviE",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8072/product-services/v1/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8072",
+					"path": [
+						"product-services",
+						"v1",
+						"products"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

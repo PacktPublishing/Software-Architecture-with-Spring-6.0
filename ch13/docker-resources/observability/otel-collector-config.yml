@@ -1,0 +1,60 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: "0.0.0.0:4317"
+      http:
+        endpoint: "0.0.0.0:4318"
+
+processors:
+  cumulativetodelta: {}
+  filter:
+    metrics:
+      exclude:
+        match_type: regexp
+        metric_names:
+          - "jvm.gc.pause"  
+  batch:
+    send_batch_size: 1000
+    timeout: 5s
+  memory_limiter:
+    check_interval: 5s
+    limit_mib: 512
+    spike_limit_mib: 128
+
+exporters:
+  debug:
+    verbosity: detailed
+  elasticsearch:
+    endpoints: ["http://elasticsearch:9200"]
+    mapping:
+      mode: "otel"
+  otlp:
+    endpoint: "http://localhost:4318"
+    tls:
+      insecure: true
+    sending_queue:
+      enabled: true
+      queue_size: 5000
+    retry_on_failure:
+      enabled: true
+      initial_interval: 5s
+      max_interval: 30s
+      max_elapsed_time: 300s
+  zipkin:
+    endpoint: "http://zipkin:9411/api/v2/spans"
+
+service:
+  pipelines:
+    logs:
+      receivers: [otlp]
+      processors: [batch, memory_limiter]
+      exporters: [elasticsearch, otlp]
+    metrics:
+      receivers: [otlp]
+      processors: [batch, cumulativetodelta, memory_limiter]
+      exporters: [debug, elasticsearch, otlp]
+    traces:
+      receivers: [otlp]
+      processors: [batch, memory_limiter]
+      exporters: [elasticsearch, zipkin]
