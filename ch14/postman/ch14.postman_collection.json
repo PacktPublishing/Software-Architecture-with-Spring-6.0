@@ -1,0 +1,81 @@
+{
+	"info": {
+		"_postman_id": "acdf7b57-fe4c-43c7-8e39-2a2cfd89a846",
+		"name": "ch14",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4179687",
+		"_collection_link": "https://gold-zodiac-469756.postman.co/workspace/SAWS6~dfe77395-c905-4e2b-93e1-a9acce6c5cc6/collection/4179687-acdf7b57-fe4c-43c7-8e39-2a2cfd89a846?action=share&source=collection_link&creator=4179687"
+	},
+	"item": [
+		{
+			"name": "AUTH - LOGIN ADMIN",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"admin@wxauction.com\",\n    \"password\": \"test123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/api/auth",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"api",
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AUTH - LOGIN USER",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"user@wxauction.com\",\n    \"password\": \"test123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/api/auth",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"api",
+						"auth"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
