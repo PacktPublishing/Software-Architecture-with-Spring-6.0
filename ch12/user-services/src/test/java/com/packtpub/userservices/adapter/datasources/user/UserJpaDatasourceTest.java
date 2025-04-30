@@ -16,7 +16,7 @@ class UserJpaDatasourceTest {
     @Test
     void givenUserExists_whenFindByUsername_thenReturnUser() {
 
-        UserJpaRepository userJpaRepository = mock(UserJpaRepository.class);
+        UserJpaRepository userJpaRepository = mock();
         UserJpaDatasource userJpaDatasource = new UserJpaDatasource(userJpaRepository);
 
         String name = "testUser";
@@ -27,23 +27,20 @@ class UserJpaDatasourceTest {
 
         Optional<User> result = userJpaDatasource.findByUsername(name);
 
-            assertThat(result)
-                .isPresent()
-                .get()
-                .extracting(User::getName)
-                .isEqualTo(name);
+        assertThat(result).hasValueSatisfying(it -> assertThat(it.getName()).isEqualTo(name));
+
     }
 
 
     @Test
     void findByUsername_shouldReturnEmpty_whenUserDoesNotExist() {
 
-        UserJpaRepository userJpaRepository = mock(UserJpaRepository.class);
+        UserJpaRepository userJpaRepository = mock();
         UserJpaDatasource userJpaDatasource = new UserJpaDatasource(userJpaRepository);
 
         when(userJpaRepository.findByUsername(anyString())).thenReturn(Optional.empty());
 
-        Optional<UserEntity> result = userJpaRepository.findByUsername("nonExistentUser");
+        Optional<User> result = userJpaDatasource.findByUsername("nonExistentUser");
 
         assertThat(result).isNotPresent();
     }

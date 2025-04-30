@@ -13,7 +13,7 @@ public class AuctionBid {
     }
 
     public void placeBid(BigDecimal amount) {
-        if (amount.compareTo(highestBid) <= 0) {
+        if (amount.compareTo(getHighestBid()) <= 0) {
             throw new IllegalArgumentException("Bid must be higher than current highest bid");
         }
         this.highestBid = amount;
