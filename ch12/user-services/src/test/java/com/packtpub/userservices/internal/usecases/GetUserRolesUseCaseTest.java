@@ -16,7 +16,7 @@ import static org.mockito.Mockito.when;
 public class GetUserRolesUseCaseTest {
 
     @Test
-    void givenUserExists_whenExecute_thenReturnsRoleNames() {
+    void givenUserExists_whenExecute_thenReturnsRoles() {
 
         UserRepository mockRepository = mock();
         GetUserRolesUseCase useCase = new GetUserRolesUseCase(mockRepository);
